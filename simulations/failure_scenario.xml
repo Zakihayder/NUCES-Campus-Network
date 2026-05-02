@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario>
+
+    <!-- At t=60s: bring down SE to Core backbone link -->
+    <at t="60">
+        <disconnect src-module="seRouter" src-gate="ethg$o[0]" />
+    </at>
+
+    <!-- At t=120s: restore SE to Core backbone link -->
+    <at t="120">
+        <connect src-module="seRouter" src-gate="ethg$o[0]"
+                 dest-module="coreRouter" dest-gate="ethg$i[0]"
+                 channel-type="ned.DatarateChannel">
+            <param name="datarate" value="100Mbps"/>
+            <param name="delay"    value="2ms"/>
+            <param name="ber"      value="1e-3"/>
+        </connect>
+    </at>
+
+</scenario>
