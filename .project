@@ -3,6 +3,7 @@
 	<name>CampusNetwork</name>
 	<comment></comment>
 	<projects>
+		<project>inet4.5</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
@@ -16,15 +17,23 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>org.omnetpp.ide.builder.OmnetppProjectBuilder</name>
+			<name>org.eclipse.cdt.managedbuilder.core.genmakebuilder</name>
+			<triggers>clean,full,incremental,</triggers>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.cdt.managedbuilder.core.ScannerConfigBuilder</name>
+			<triggers>full,incremental,</triggers>
 			<arguments>
 			</arguments>
 		</buildCommand>
 	</buildSpec>
 	<natures>
-		<nature>org.omnetpp.ide.OmnetppNature</nature>
-		<nature>org.eclipse.cdt.core.ccnature</nature>
 		<nature>org.eclipse.cdt.core.cnature</nature>
+		<nature>org.eclipse.cdt.core.ccnature</nature>
+		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
+		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 		<nature>org.omnetpp.main.omnetppnature</nature>
 	</natures>
 </projectDescription>
