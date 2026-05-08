@@ -1,19 +1,48 @@
 package src;
 
+//
+// Custom Traffic Generator — sends packets toward the application server
+// using either a Constant Bit Rate (CBR) or Bursty traffic profile.
+// All parameters are configurable from omnetpp.ini — no recompilation needed.
+//
 simple TrafficGenerator
 {
     parameters:
-        string trafficProfile = default("CBR");  // "CBR" or "Bursty"
-        int    packetSize     = default(512);     // bytes
-        double sendInterval   = default(0.01);    // seconds (CBR)
-        int    burstSize      = default(10);      // packets per burst
-        double burstGap       = default(0.5);     // silence gap in seconds
-        string destAddr       = default("10.0.6.2"); // app server IP
-        double startTime      = default(20.0);    // when to start sending
-        double stopTime       = default(155.0);   // when to stop
+        string trafficProfile = default("CBR");     // "CBR" or "Bursty"
+        int packetSize @unit(B) = default(512B);        // packet payload in bytes
+        double sendInterval   = default(0.01);       // CBR: time between packets (s)
+        int    burstSize      = default(10);         // Bursty: packets per burst
+        double burstGap       = default(0.5);        // Bursty: silence gap between bursts (s)
+        string destAddr       = default("10.0.6.1"); // application server IP
+        string srcAddr        = default("10.0.1.1"); // source IP (set per-host in ini)
+        volatile double startTime @unit(s) = default(20s);
+	volatile double stopTime  @unit(s) = default(155s);
+
+
+        @signal[pktsSent](type=long);
+        @signal[pktsReceived](type=long);
+        @signal[endToEndDelay](type=double);
+
+        @statistic[pktsSent](
+            title="Packets Sent";
+            source=pktsSent;
+            record=count,sum;
+            interpolationmode=none);
+
+        @statistic[pktsReceived](
+            title="Packets Received";
+            source=pktsReceived;
+            record=count,sum;
+            interpolationmode=none);
+
+        @statistic[endToEndDelay](
+            title="End-to-End Delay (s)";
+            source=endToEndDelay;
+            record=vector,mean,max,percentile(95);
+            interpolationmode=none);
 
         @display("i=block/source");
 
     gates:
-        output out;
+        output out;   // sends packets into the network
 }

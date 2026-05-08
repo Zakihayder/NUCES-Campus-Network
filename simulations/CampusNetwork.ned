@@ -5,138 +5,194 @@ import inet.node.inet.Router;
 import inet.node.inet.StandardHost;
 import inet.networklayer.configurator.ipv4.Ipv4NetworkConfigurator;
 import src.StaticRouter;
+import src.TrafficGenerator;
 
 network CampusNetwork
 {
     parameters:
-        @display("bgb=1200,1000;bgc=#ddeeff");
+        @display("bgb=1400,1150;bgc=#ddeeff");
 
     submodules:
 
-        // ── Configurator (hidden bottom corner) ────────────────
         configurator: Ipv4NetworkConfigurator {
-            @display("p=80,950;i=block/cogwheel;is=s");
-        }
-		
-		srMonitor: StaticRouter {
-            parameters:
-                numPorts = 4;
-                routeTable = "10.0.2.0/255.255.255.0:1;10.0.3.0/255.255.255.0:2;10.0.4.0/255.255.255.0:3;10.0.5.0/255.255.255.0:0;10.0.6.0/255.255.255.0:0";
-            @display("p=200,950;i=device/router;is=s");
+            @display("p=80,1080;i=block/cogwheel;is=s");
         }
 
-        // ── Scenario Manager (controls link failure) ───────────
         scenarioManager: ScenarioManager {
-            @display("p=200,950;i=block/control;is=s");
+            @display("p=350,1080;i=block/control;is=s");
         }
 
+        // ================= SE Department =================
 
-        // ══════════════════════════════════════════════════════
-        // SE DEPARTMENT — Top Left Building
-        // ══════════════════════════════════════════════════════
         seRouter: Router {
-            @display("p=250,350;i=device/router;is=m;t=SE-Router\n[10.0.1.254];bgb=200,180;bgt=SE Dept;bgc=#cce5ff");
+            parameters:
+                numEthInterfaces = 10;
+            @display("p=280,380;i=device/router;is=m;t=SE-Router [10.0.1.254]");
         }
+
         seHost1: StandardHost {
-            @display("p=120,200;i=device/laptop;is=s;t=SE-PC1\n10.0.1.1");
+            parameters:
+                numEthInterfaces = 1;
+            @display("p=100,200;i=device/laptop;is=s;t=SE-PC1 10.0.1.1");
         }
+
         seHost2: StandardHost {
-            @display("p=250,200;i=device/laptop;is=s;t=SE-PC2\n10.0.1.2");
+            parameters:
+                numEthInterfaces = 1;
+            @display("p=280,200;i=device/laptop;is=s;t=SE-PC2 10.0.1.2");
         }
+
         seHost3: StandardHost {
-            @display("p=380,200;i=device/laptop;is=s;t=SE-PC3\n10.0.1.3");
+            parameters:
+                numEthInterfaces = 1;
+            @display("p=460,200;i=device/laptop;is=s;t=SE-PC3 10.0.1.3");
         }
 
-        // ══════════════════════════════════════════════════════
-        // EE DEPARTMENT — Top Right Building
-        // ══════════════════════════════════════════════════════
+        tgSE1: TrafficGenerator {
+            @display("p=100,60;i=block/source;is=s;t=TG-SE1");
+        }
+
+        tgSE2: TrafficGenerator {
+            @display("p=280,60;i=block/source;is=s;t=TG-SE2");
+        }
+
+        tgSE3: TrafficGenerator {
+            @display("p=460,60;i=block/source;is=s;t=TG-SE3");
+        }
+
+        // ================= EE Department =================
+
         eeRouter: Router {
-            @display("p=950,350;i=device/router;is=m;t=EE-Router\n[10.0.2.254]");
+            parameters:
+                numEthInterfaces = 10;
+            @display("p=1050,380;i=device/router;is=m;t=EE-Router [10.0.2.254]");
         }
+
         eeHost1: StandardHost {
-            @display("p=820,200;i=device/laptop;is=s;t=EE-PC1\n10.0.2.1");
+            parameters:
+                numEthInterfaces = 1;
+            @display("p=900,200;i=device/laptop;is=s;t=EE-PC1 10.0.2.1");
         }
+
         eeHost2: StandardHost {
-            @display("p=950,200;i=device/laptop;is=s;t=EE-PC2\n10.0.2.2");
+            parameters:
+                numEthInterfaces = 1;
+            @display("p=1050,200;i=device/laptop;is=s;t=EE-PC2 10.0.2.2");
         }
+
         eeHost3: StandardHost {
-            @display("p=1080,200;i=device/laptop;is=s;t=EE-PC3\n10.0.2.3");
+            parameters:
+                numEthInterfaces = 1;
+            @display("p=1200,200;i=device/laptop;is=s;t=EE-PC3 10.0.2.3");
         }
 
-        // ══════════════════════════════════════════════════════
-        // DATA CENTER — Center
-        // ══════════════════════════════════════════════════════
+        // ================= CORE =================
+
         coreRouter: Router {
-            @display("p=600,500;i=device/router;is=l;t=Core Router\n[10.0.0.1]");
+            parameters:
+                numEthInterfaces = 20;
+            @display("p=660,530;i=device/router;is=l;t=Core Router [10.0.0.1]");
         }
+
         dnsServer: StandardHost {
-            @display("p=430,500;i=device/server2;is=m;t=DNS Server\n10.0.5.1");
+            parameters:
+                numEthInterfaces = 1;
+            @display("p=480,530;i=device/server2;is=m;t=DNS 10.0.5.1");
         }
+
         appServer: StandardHost {
-            @display("p=770,500;i=device/server2;is=m;t=App Server\n10.0.6.1");
+            parameters:
+                numEthInterfaces = 1;
+            @display("p=840,530;i=device/server2;is=m;t=AppSrv 10.0.6.1");
         }
 
-        // ══════════════════════════════════════════════════════
-        // BBA DEPARTMENT — Bottom Left Building
-        // ══════════════════════════════════════════════════════
+        // ================= BBA Department =================
+
         bbaRouter: Router {
-            @display("p=250,650;i=device/router;is=m;t=BBA-Router\n[10.0.3.254]");
+            parameters:
+                numEthInterfaces = 10;
+            @display("p=280,700;i=device/router;is=m;t=BBA-Router [10.0.3.254]");
         }
+
         bbaHost1: StandardHost {
-            @display("p=120,800;i=device/laptop;is=s;t=BBA-PC1\n10.0.3.1");
+            parameters:
+                numEthInterfaces = 1;
+            @display("p=100,880;i=device/laptop;is=s;t=BBA-PC1 10.0.3.1");
         }
+
         bbaHost2: StandardHost {
-            @display("p=250,800;i=device/laptop;is=s;t=BBA-PC2\n10.0.3.2");
+            parameters:
+                numEthInterfaces = 1;
+            @display("p=280,880;i=device/laptop;is=s;t=BBA-PC2 10.0.3.2");
         }
+
         bbaHost3: StandardHost {
-            @display("p=380,800;i=device/laptop;is=s;t=BBA-PC3\n10.0.3.3");
+            parameters:
+                numEthInterfaces = 1;
+            @display("p=460,880;i=device/laptop;is=s;t=BBA-PC3 10.0.3.3");
         }
 
-        // ══════════════════════════════════════════════════════
-        // ADMIN DEPARTMENT — Bottom Right Building
-        // ══════════════════════════════════════════════════════
+        // ================= ADMIN =================
+
         adminRouter: Router {
-            @display("p=950,650;i=device/router;is=m;t=Admin-Router\n[10.0.4.254]");
+            parameters:
+                numEthInterfaces = 10;
+            @display("p=1050,700;i=device/router;is=m;t=Admin-Router [10.0.4.254]");
         }
+
         adminHost1: StandardHost {
-            @display("p=820,800;i=device/laptop;is=s;t=Admin-PC1\n10.0.4.1");
+            parameters:
+                numEthInterfaces = 1;
+            @display("p=900,880;i=device/laptop;is=s;t=Admin-PC1 10.0.4.1");
         }
+
         adminHost2: StandardHost {
-            @display("p=950,800;i=device/laptop;is=s;t=Admin-PC2\n10.0.4.2");
+            parameters:
+                numEthInterfaces = 1;
+            @display("p=1050,880;i=device/laptop;is=s;t=Admin-PC2 10.0.4.2");
         }
+
         adminHost3: StandardHost {
-            @display("p=1080,800;i=device/laptop;is=s;t=Admin-PC3\n10.0.4.3");
+            parameters:
+                numEthInterfaces = 1;
+            @display("p=1200,880;i=device/laptop;is=s;t=Admin-PC3 10.0.4.3");
         }
 
-    connections:
+    connections allowunconnected:
 
-        // ── Backbone: 100Mbps, 2ms, 0.1% BER ─────────────────
-        seRouter.ethg++    <--> {datarate=100Mbps; delay=2ms; ber=1e-3; @display("ls=#e74c3c,3");} <--> coreRouter.ethg++;
-        eeRouter.ethg++    <--> {datarate=100Mbps; delay=2ms; ber=1e-3; @display("ls=#e74c3c,3");} <--> coreRouter.ethg++;
-        bbaRouter.ethg++   <--> {datarate=100Mbps; delay=2ms; ber=1e-3; @display("ls=#e74c3c,3");} <--> coreRouter.ethg++;
-        adminRouter.ethg++ <--> {datarate=100Mbps; delay=2ms; ber=1e-3; @display("ls=#e74c3c,3");} <--> coreRouter.ethg++;
+        // ================= Backbone =================
 
-        // ── Server Links: 100Mbps, 1ms ─────────────────────────
-        coreRouter.ethg++ <--> {datarate=100Mbps; delay=1ms; @display("ls=#8e44ad,2");} <--> dnsServer.ethg++;
-        coreRouter.ethg++ <--> {datarate=100Mbps; delay=1ms; @display("ls=#8e44ad,2");} <--> appServer.ethg++;
+        seRouter.ethg++ <--> { datarate=100Mbps; delay=2ms; ber=1e-3; } <--> coreRouter.ethg++;
+        eeRouter.ethg++ <--> { datarate=100Mbps; delay=2ms; ber=1e-3; } <--> coreRouter.ethg++;
+        bbaRouter.ethg++ <--> { datarate=100Mbps; delay=2ms; ber=1e-3; } <--> coreRouter.ethg++;
+        adminRouter.ethg++ <--> { datarate=100Mbps; delay=2ms; ber=1e-3; } <--> coreRouter.ethg++;
 
-        // ── SE Access: 10Mbps, 1ms ────────────────────────────
-        seRouter.ethg++ <--> {datarate=10Mbps; delay=1ms; @display("ls=#27ae60,1");} <--> seHost1.ethg++;
-        seRouter.ethg++ <--> {datarate=10Mbps; delay=1ms; @display("ls=#27ae60,1");} <--> seHost2.ethg++;
-        seRouter.ethg++ <--> {datarate=10Mbps; delay=1ms; @display("ls=#27ae60,1");} <--> seHost3.ethg++;
+        // ================= Servers =================
 
-        // ── EE Access: 10Mbps, 1ms ────────────────────────────
-        eeRouter.ethg++ <--> {datarate=10Mbps; delay=1ms; @display("ls=#27ae60,1");} <--> eeHost1.ethg++;
-        eeRouter.ethg++ <--> {datarate=10Mbps; delay=1ms; @display("ls=#27ae60,1");} <--> eeHost2.ethg++;
-        eeRouter.ethg++ <--> {datarate=10Mbps; delay=1ms; @display("ls=#27ae60,1");} <--> eeHost3.ethg++;
+        coreRouter.ethg++ <--> { datarate=100Mbps; delay=1ms; } <--> dnsServer.ethg++;
+        coreRouter.ethg++ <--> { datarate=100Mbps; delay=1ms; } <--> appServer.ethg++;
 
-        // ── BBA Access: 10Mbps, 1ms ───────────────────────────
-        bbaRouter.ethg++ <--> {datarate=10Mbps; delay=1ms; @display("ls=#27ae60,1");} <--> bbaHost1.ethg++;
-        bbaRouter.ethg++ <--> {datarate=10Mbps; delay=1ms; @display("ls=#27ae60,1");} <--> bbaHost2.ethg++;
-        bbaRouter.ethg++ <--> {datarate=10Mbps; delay=1ms; @display("ls=#27ae60,1");} <--> bbaHost3.ethg++;
+        // ================= SE Hosts =================
 
-        // ── Admin Access: 10Mbps, 1ms ─────────────────────────
-        adminRouter.ethg++ <--> {datarate=10Mbps; delay=1ms; @display("ls=#27ae60,1");} <--> adminHost1.ethg++;
-        adminRouter.ethg++ <--> {datarate=10Mbps; delay=1ms; @display("ls=#27ae60,1");} <--> adminHost2.ethg++;
-        adminRouter.ethg++ <--> {datarate=10Mbps; delay=1ms; @display("ls=#27ae60,1");} <--> adminHost3.ethg++;
+        seRouter.ethg++ <--> { datarate=10Mbps; delay=1ms; } <--> seHost1.ethg++;
+        seRouter.ethg++ <--> { datarate=10Mbps; delay=1ms; } <--> seHost2.ethg++;
+        seRouter.ethg++ <--> { datarate=10Mbps; delay=1ms; } <--> seHost3.ethg++;
+
+        // ================= EE Hosts =================
+
+        eeRouter.ethg++ <--> { datarate=10Mbps; delay=1ms; } <--> eeHost1.ethg++;
+        eeRouter.ethg++ <--> { datarate=10Mbps; delay=1ms; } <--> eeHost2.ethg++;
+        eeRouter.ethg++ <--> { datarate=10Mbps; delay=1ms; } <--> eeHost3.ethg++;
+
+        // ================= BBA Hosts =================
+
+        bbaRouter.ethg++ <--> { datarate=10Mbps; delay=1ms; } <--> bbaHost1.ethg++;
+        bbaRouter.ethg++ <--> { datarate=10Mbps; delay=1ms; } <--> bbaHost2.ethg++;
+        bbaRouter.ethg++ <--> { datarate=10Mbps; delay=1ms; } <--> bbaHost3.ethg++;
+
+        // ================= ADMIN Hosts =================
+
+        adminRouter.ethg++ <--> { datarate=10Mbps; delay=1ms; } <--> adminHost1.ethg++;
+        adminRouter.ethg++ <--> { datarate=10Mbps; delay=1ms; } <--> adminHost2.ethg++;
+        adminRouter.ethg++ <--> { datarate=10Mbps; delay=1ms; } <--> adminHost3.ethg++;
 }
