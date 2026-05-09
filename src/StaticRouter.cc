@@ -122,7 +122,7 @@ void StaticRouter::handleMessage(cMessage *msg)
         EV_WARN << "[StaticRouter:" << getFullName()
                 << "] Packet has no destAddr param, forwarding to port 0\n";
         if (gateSize("port") > 0)
-            send(msg, "port$o", 0);
+            send(msg, "ethg$o", 0);
         else
             delete msg;
         return;
@@ -153,7 +153,7 @@ void StaticRouter::handleMessage(cMessage *msg)
                 << " t=" << simTime() << "\n";
         emit(pktsForwardedSignal, 1);
         totalForwarded++;
-        send(msg, "port$o", port);
+        send(msg, "ethg$o", port);
     }
 }
 

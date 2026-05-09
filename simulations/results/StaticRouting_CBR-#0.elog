@@ -1,4 +1,4 @@
-SB ov 1539 ev 2 rid StaticRouting_CBR-0-20260508-22:08:54-1468
+SB ov 1539 ev 2 rid StaticRouting_CBR-0-20260509-21:19:23-19932
 
 E # 0 t 0 m 1 ce -1 msg -1
 MC id 1 c omnetpp::cModule t simulations.CampusNetwork n CampusNetwork cm 1
@@ -43,5 +43,236 @@ GC m 7 g 3145728 n ethg$i i 0 o 0
 GC m 7 g 3670016 n ethg$o i 0 o 1
 MC id 8 c TrafficGenerator t src.TrafficGenerator pid 1 n tgSE1
 GC m 8 g 1 n out o 1
+MDC id 8 d t=TG-SE1;is=s;p=100,60;i=block/source
+MC id 9 c TrafficGenerator t src.TrafficGenerator pid 1 n tgSE2
+GC m 9 g 1 n out o 1
+MDC id 9 d t=TG-SE2;is=s;p=280,60;i=block/source
+MC id 10 c TrafficGenerator t src.TrafficGenerator pid 1 n tgSE3
+GC m 10 g 1 n out o 1
+MDC id 10 d t=TG-SE3;is=s;p=460,60;i=block/source
+MC id 11 c inet::NodeBase t inet.node.inet.Router pid 1 n eeRouter cm 1
+MDC id 11 d "t=EE-Router [10.0.2.254];is=m;p=1050,380;i=device/router;bgb=1256,1125"
+GC m 11 g 3145728 n ethg$i i 0 o 0
+GC m 11 g 3670016 n ethg$o i 0 o 1
+GC m 11 g 3145729 n ethg$i i 1 o 0
+GC m 11 g 3670017 n ethg$o i 1 o 1
+GC m 11 g 3145730 n ethg$i i 2 o 0
+GC m 11 g 3670018 n ethg$o i 2 o 1
+GC m 11 g 3145731 n ethg$i i 3 o 0
+GC m 11 g 3670019 n ethg$o i 3 o 1
+GC m 11 g 3145732 n ethg$i i 4 o 0
+GC m 11 g 3670020 n ethg$o i 4 o 1
+GC m 11 g 3145733 n ethg$i i 5 o 0
+GC m 11 g 3670021 n ethg$o i 5 o 1
+GC m 11 g 3145734 n ethg$i i 6 o 0
+GC m 11 g 3670022 n ethg$o i 6 o 1
+GC m 11 g 3145735 n ethg$i i 7 o 0
+GC m 11 g 3670023 n ethg$o i 7 o 1
+GC m 11 g 3145736 n ethg$i i 8 o 0
+GC m 11 g 3670024 n ethg$o i 8 o 1
+GC m 11 g 3145737 n ethg$i i 9 o 0
+GC m 11 g 3670025 n ethg$o i 9 o 1
+MC id 12 c inet::NodeBase t inet.node.inet.StandardHost pid 1 n eeHost1 cm 1
+MDC id 12 d "t=EE-PC1 10.0.2.1;is=s;p=900,200;i=device/laptop;bgb=1256,1125"
+GC m 12 g 3145728 n ethg$i i 0 o 0
+GC m 12 g 3670016 n ethg$o i 0 o 1
+MC id 13 c inet::NodeBase t inet.node.inet.StandardHost pid 1 n eeHost2 cm 1
+MDC id 13 d "t=EE-PC2 10.0.2.2;is=s;p=1050,200;i=device/laptop;bgb=1256,1125"
+GC m 13 g 3145728 n ethg$i i 0 o 0
+GC m 13 g 3670016 n ethg$o i 0 o 1
+MC id 14 c inet::NodeBase t inet.node.inet.StandardHost pid 1 n eeHost3 cm 1
+MDC id 14 d "t=EE-PC3 10.0.2.3;is=s;p=1200,200;i=device/laptop;bgb=1256,1125"
+GC m 14 g 3145728 n ethg$i i 0 o 0
+GC m 14 g 3670016 n ethg$o i 0 o 1
+MC id 15 c inet::NodeBase t inet.node.inet.Router pid 1 n coreRouter cm 1
+MDC id 15 d "t=Core Router [10.0.0.1];is=l;p=660,530;i=device/router;bgb=1256,1125"
+GC m 15 g 3145728 n ethg$i i 0 o 0
+GC m 15 g 3670016 n ethg$o i 0 o 1
+GC m 15 g 3145729 n ethg$i i 1 o 0
+GC m 15 g 3670017 n ethg$o i 1 o 1
+GC m 15 g 3145730 n ethg$i i 2 o 0
+GC m 15 g 3670018 n ethg$o i 2 o 1
+GC m 15 g 3145731 n ethg$i i 3 o 0
+GC m 15 g 3670019 n ethg$o i 3 o 1
+GC m 15 g 3145732 n ethg$i i 4 o 0
+GC m 15 g 3670020 n ethg$o i 4 o 1
+GC m 15 g 3145733 n ethg$i i 5 o 0
+GC m 15 g 3670021 n ethg$o i 5 o 1
+GC m 15 g 3145734 n ethg$i i 6 o 0
+GC m 15 g 3670022 n ethg$o i 6 o 1
+GC m 15 g 3145735 n ethg$i i 7 o 0
+GC m 15 g 3670023 n ethg$o i 7 o 1
+GC m 15 g 3145736 n ethg$i i 8 o 0
+GC m 15 g 3670024 n ethg$o i 8 o 1
+GC m 15 g 3145737 n ethg$i i 9 o 0
+GC m 15 g 3670025 n ethg$o i 9 o 1
+GC m 15 g 3145738 n ethg$i i 10 o 0
+GC m 15 g 3670026 n ethg$o i 10 o 1
+GC m 15 g 3145739 n ethg$i i 11 o 0
+GC m 15 g 3670027 n ethg$o i 11 o 1
+GC m 15 g 3145740 n ethg$i i 12 o 0
+GC m 15 g 3670028 n ethg$o i 12 o 1
+GC m 15 g 3145741 n ethg$i i 13 o 0
+GC m 15 g 3670029 n ethg$o i 13 o 1
+GC m 15 g 3145742 n ethg$i i 14 o 0
+GC m 15 g 3670030 n ethg$o i 14 o 1
+GC m 15 g 3145743 n ethg$i i 15 o 0
+GC m 15 g 3670031 n ethg$o i 15 o 1
+GC m 15 g 3145744 n ethg$i i 16 o 0
+GC m 15 g 3670032 n ethg$o i 16 o 1
+GC m 15 g 3145745 n ethg$i i 17 o 0
+GC m 15 g 3670033 n ethg$o i 17 o 1
+GC m 15 g 3145746 n ethg$i i 18 o 0
+GC m 15 g 3670034 n ethg$o i 18 o 1
+GC m 15 g 3145747 n ethg$i i 19 o 0
+GC m 15 g 3670035 n ethg$o i 19 o 1
+MC id 16 c inet::NodeBase t inet.node.inet.StandardHost pid 1 n dnsServer cm 1
+MDC id 16 d "t=DNS 10.0.5.1;is=m;p=480,530;i=device/server2;bgb=1256,1125"
+GC m 16 g 3145728 n ethg$i i 0 o 0
+GC m 16 g 3670016 n ethg$o i 0 o 1
+MC id 17 c inet::NodeBase t inet.node.inet.StandardHost pid 1 n appServer cm 1
+MDC id 17 d "t=AppSrv 10.0.6.1;is=m;p=840,530;i=device/server2;bgb=1256,1125"
+GC m 17 g 3145728 n ethg$i i 0 o 0
+GC m 17 g 3670016 n ethg$o i 0 o 1
+MC id 18 c inet::NodeBase t inet.node.inet.Router pid 1 n bbaRouter cm 1
+MDC id 18 d "t=BBA-Router [10.0.3.254];is=m;p=280,700;i=device/router;bgb=1256,1125"
+GC m 18 g 3145728 n ethg$i i 0 o 0
+GC m 18 g 3670016 n ethg$o i 0 o 1
+GC m 18 g 3145729 n ethg$i i 1 o 0
+GC m 18 g 3670017 n ethg$o i 1 o 1
+GC m 18 g 3145730 n ethg$i i 2 o 0
+GC m 18 g 3670018 n ethg$o i 2 o 1
+GC m 18 g 3145731 n ethg$i i 3 o 0
+GC m 18 g 3670019 n ethg$o i 3 o 1
+GC m 18 g 3145732 n ethg$i i 4 o 0
+GC m 18 g 3670020 n ethg$o i 4 o 1
+GC m 18 g 3145733 n ethg$i i 5 o 0
+GC m 18 g 3670021 n ethg$o i 5 o 1
+GC m 18 g 3145734 n ethg$i i 6 o 0
+GC m 18 g 3670022 n ethg$o i 6 o 1
+GC m 18 g 3145735 n ethg$i i 7 o 0
+GC m 18 g 3670023 n ethg$o i 7 o 1
+GC m 18 g 3145736 n ethg$i i 8 o 0
+GC m 18 g 3670024 n ethg$o i 8 o 1
+GC m 18 g 3145737 n ethg$i i 9 o 0
+GC m 18 g 3670025 n ethg$o i 9 o 1
+MC id 19 c inet::NodeBase t inet.node.inet.StandardHost pid 1 n bbaHost1 cm 1
+MDC id 19 d "t=BBA-PC1 10.0.3.1;is=s;p=100,880;i=device/laptop;bgb=1256,1125"
+GC m 19 g 3145728 n ethg$i i 0 o 0
+GC m 19 g 3670016 n ethg$o i 0 o 1
+MC id 20 c inet::NodeBase t inet.node.inet.StandardHost pid 1 n bbaHost2 cm 1
+MDC id 20 d "t=BBA-PC2 10.0.3.2;is=s;p=280,880;i=device/laptop;bgb=1256,1125"
+GC m 20 g 3145728 n ethg$i i 0 o 0
+GC m 20 g 3670016 n ethg$o i 0 o 1
+MC id 21 c inet::NodeBase t inet.node.inet.StandardHost pid 1 n bbaHost3 cm 1
+MDC id 21 d "t=BBA-PC3 10.0.3.3;is=s;p=460,880;i=device/laptop;bgb=1256,1125"
+GC m 21 g 3145728 n ethg$i i 0 o 0
+GC m 21 g 3670016 n ethg$o i 0 o 1
+MC id 22 c inet::NodeBase t inet.node.inet.Router pid 1 n adminRouter cm 1
+MDC id 22 d "t=Admin-Router [10.0.4.254];is=m;p=1050,700;i=device/router;bgb=1256,1125"
+GC m 22 g 3145728 n ethg$i i 0 o 0
+GC m 22 g 3670016 n ethg$o i 0 o 1
+GC m 22 g 3145729 n ethg$i i 1 o 0
+GC m 22 g 3670017 n ethg$o i 1 o 1
+GC m 22 g 3145730 n ethg$i i 2 o 0
+GC m 22 g 3670018 n ethg$o i 2 o 1
+GC m 22 g 3145731 n ethg$i i 3 o 0
+GC m 22 g 3670019 n ethg$o i 3 o 1
+GC m 22 g 3145732 n ethg$i i 4 o 0
+GC m 22 g 3670020 n ethg$o i 4 o 1
+GC m 22 g 3145733 n ethg$i i 5 o 0
+GC m 22 g 3670021 n ethg$o i 5 o 1
+GC m 22 g 3145734 n ethg$i i 6 o 0
+GC m 22 g 3670022 n ethg$o i 6 o 1
+GC m 22 g 3145735 n ethg$i i 7 o 0
+GC m 22 g 3670023 n ethg$o i 7 o 1
+GC m 22 g 3145736 n ethg$i i 8 o 0
+GC m 22 g 3670024 n ethg$o i 8 o 1
+GC m 22 g 3145737 n ethg$i i 9 o 0
+GC m 22 g 3670025 n ethg$o i 9 o 1
+MC id 23 c inet::NodeBase t inet.node.inet.StandardHost pid 1 n adminHost1 cm 1
+MDC id 23 d "t=Admin-PC1 10.0.4.1;is=s;p=900,880;i=device/laptop;bgb=1256,1125"
+GC m 23 g 3145728 n ethg$i i 0 o 0
+GC m 23 g 3670016 n ethg$o i 0 o 1
+MC id 24 c inet::NodeBase t inet.node.inet.StandardHost pid 1 n adminHost2 cm 1
+MDC id 24 d "t=Admin-PC2 10.0.4.2;is=s;p=1050,880;i=device/laptop;bgb=1256,1125"
+GC m 24 g 3145728 n ethg$i i 0 o 0
+GC m 24 g 3670016 n ethg$o i 0 o 1
+MC id 25 c inet::NodeBase t inet.node.inet.StandardHost pid 1 n adminHost3 cm 1
+MDC id 25 d "t=Admin-PC3 10.0.4.3;is=s;p=1200,880;i=device/laptop;bgb=1256,1125"
+GC m 25 g 3145728 n ethg$i i 0 o 0
+GC m 25 g 3670016 n ethg$o i 0 o 1
+CC sm 4 sg 3670016 dm 15 dg 3145728
+CDC sm 4 sg 3670016 d ""
+CC sm 15 sg 3670016 dm 4 dg 3145728
+CDC sm 15 sg 3670016 d ""
+CC sm 11 sg 3670016 dm 15 dg 3145729
+CDC sm 11 sg 3670016 d ""
+CC sm 15 sg 3670017 dm 11 dg 3145728
+CDC sm 15 sg 3670017 d ""
+CC sm 18 sg 3670016 dm 15 dg 3145730
+CDC sm 18 sg 3670016 d ""
+CC sm 15 sg 3670018 dm 18 dg 3145728
+CDC sm 15 sg 3670018 d ""
+CC sm 22 sg 3670016 dm 15 dg 3145731
+CDC sm 22 sg 3670016 d ""
+CC sm 15 sg 3670019 dm 22 dg 3145728
+CDC sm 15 sg 3670019 d ""
+CC sm 15 sg 3670020 dm 16 dg 3145728
+CDC sm 15 sg 3670020 d ""
+CC sm 16 sg 3670016 dm 15 dg 3145732
+CDC sm 16 sg 3670016 d ""
+CC sm 15 sg 3670021 dm 17 dg 3145728
+CDC sm 15 sg 3670021 d ""
+CC sm 17 sg 3670016 dm 15 dg 3145733
+CDC sm 17 sg 3670016 d ""
+CC sm 4 sg 3670017 dm 5 dg 3145728
+CDC sm 4 sg 3670017 d ""
+CC sm 5 sg 3670016 dm 4 dg 3145729
+CDC sm 5 sg 3670016 d ""
+CC sm 4 sg 3670018 dm 6 dg 3145728
+CDC sm 4 sg 3670018 d ""
+CC sm 6 sg 3670016 dm 4 dg 3145730
+CDC sm 6 sg 3670016 d ""
+CC sm 4 sg 3670019 dm 7 dg 3145728
+CDC sm 4 sg 3670019 d ""
+CC sm 7 sg 3670016 dm 4 dg 3145731
+CDC sm 7 sg 3670016 d ""
+CC sm 11 sg 3670017 dm 12 dg 3145728
+CDC sm 11 sg 3670017 d ""
+CC sm 12 sg 3670016 dm 11 dg 3145729
+CDC sm 12 sg 3670016 d ""
+CC sm 11 sg 3670018 dm 13 dg 3145728
+CDC sm 11 sg 3670018 d ""
+CC sm 13 sg 3670016 dm 11 dg 3145730
+CDC sm 13 sg 3670016 d ""
+CC sm 11 sg 3670019 dm 14 dg 3145728
+CDC sm 11 sg 3670019 d ""
+CC sm 14 sg 3670016 dm 11 dg 3145731
+CDC sm 14 sg 3670016 d ""
+CC sm 18 sg 3670017 dm 19 dg 3145728
+CDC sm 18 sg 3670017 d ""
+CC sm 19 sg 3670016 dm 18 dg 3145729
+CDC sm 19 sg 3670016 d ""
+CC sm 18 sg 3670018 dm 20 dg 3145728
+CDC sm 18 sg 3670018 d ""
+CC sm 20 sg 3670016 dm 18 dg 3145730
+CDC sm 20 sg 3670016 d ""
+CC sm 18 sg 3670019 dm 21 dg 3145728
+CDC sm 18 sg 3670019 d ""
+CC sm 21 sg 3670016 dm 18 dg 3145731
+CDC sm 21 sg 3670016 d ""
+CC sm 22 sg 3670017 dm 23 dg 3145728
+CDC sm 22 sg 3670017 d ""
+CC sm 23 sg 3670016 dm 22 dg 3145729
+CDC sm 23 sg 3670016 d ""
+CC sm 22 sg 3670018 dm 24 dg 3145728
+CDC sm 22 sg 3670018 d ""
+CC sm 24 sg 3670016 dm 22 dg 3145730
+CDC sm 24 sg 3670016 d ""
+CC sm 22 sg 3670019 dm 25 dg 3145728
+CDC sm 22 sg 3670019 d ""
+CC sm 25 sg 3670016 dm 22 dg 3145731
+CDC sm 25 sg 3670016 d ""
 
 SE e 0 c -1 m ""
