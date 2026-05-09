@@ -10,9 +10,9 @@ simple TrafficGenerator
     parameters:
         string trafficProfile = default("CBR");     // "CBR" or "Bursty"
         int packetSize @unit(B) = default(512B);        // packet payload in bytes
-        double sendInterval   = default(0.01);       // CBR: time between packets (s)
+        double sendInterval @unit(s)   = default(0.01s);       // CBR: time between packets (s)
         int    burstSize      = default(10);         // Bursty: packets per burst
-        double burstGap       = default(0.5);        // Bursty: silence gap between bursts (s)
+        double burstGap @unit(s)       = default(0.5s);        // Bursty: silence gap between bursts (s)
         string destAddr       = default("10.0.6.1"); // application server IP
         string srcAddr        = default("10.0.1.1"); // source IP (set per-host in ini)
         volatile double startTime @unit(s) = default(20s);
