@@ -1,0 +1,2989 @@
+file 9124065 1778350250                                         
+version 3
+run OSPF-0-20260508-01:33:15-16012
+attr configname OSPF
+attr datetime 20260508-01:33:15
+attr datetimef 20260508-013315
+attr experiment OSPF
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsd ""
+attr iterationvarsf ""
+attr measurement ""
+attr network simulations.CampusNetwork
+attr processid 16012
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+config image-path ../../inet4.5/images
+config description "Campus network with OSPF (Link-State routing)"
+config *.coreRouter.hasOspf true
+config *.seRouter.hasOspf true
+config *.eeRouter.hasOspf true
+config *.bbaRouter.hasOspf true
+config *.adminRouter.hasOspf true
+config *.coreRouter.hasRip false
+config *.seRouter.hasRip false
+config *.eeRouter.hasRip false
+config *.bbaRouter.hasRip false
+config *.adminRouter.hasRip false
+config *.coreRouter.ospf.ospfConfig "xmldoc(\"ospf-config/ASConfig.xml\")"
+config *.seRouter.ospf.ospfConfig "xmldoc(\"ospf-config/ASConfig.xml\")"
+config *.eeRouter.ospf.ospfConfig "xmldoc(\"ospf-config/ASConfig.xml\")"
+config *.bbaRouter.ospf.ospfConfig "xmldoc(\"ospf-config/ASConfig.xml\")"
+config *.adminRouter.ospf.ospfConfig "xmldoc(\"ospf-config/ASConfig.xml\")"
+config *.seHost*.numApps 1
+config *.seHost*.app[0].typename UdpBasicApp
+config *.seHost*.app[0].destAddresses "\"10.0.6.1\""
+config *.seHost*.app[0].destPort 5000
+config *.seHost*.app[0].messageLength 512B
+config *.seHost*.app[0].sendInterval 10ms
+config *.seHost*.app[0].startTime 20s
+config *.seHost*.app[0].stopTime 155s
+config *.appServer.numApps 1
+config *.appServer.app[0].typename UdpSink
+config *.appServer.app[0].localPort 5000
+config *.scenarioManager.script "xmldoc(\"failure_scenario.xml\")"
+config *.coreRouter.ospf.**.scalar-recording true
+config *.coreRouter.ospf.**.vector-recording true
+config *.seRouter.ospf.**.scalar-recording true
+config *.seRouter.ospf.**.vector-recording true
+config *.eeRouter.ospf.**.scalar-recording true
+config *.eeRouter.ospf.**.vector-recording true
+config *.bbaRouter.ospf.**.scalar-recording true
+config *.bbaRouter.ospf.**.vector-recording true
+config *.adminRouter.ospf.**.scalar-recording true
+config *.adminRouter.ospf.**.vector-recording true
+config network simulations.CampusNetwork
+config sim-time-limit 180s
+config record-eventlog false
+config **.cmdenv-log-level info
+config **.scalar-recording true
+config **.vector-recording true
+config *.configurator.addStaticRoutes true
+config *.configurator.addDefaultRoutes true
+config *.configurator.addSubnetRoutes true
+
+vector 0 CampusNetwork.srMonitor linkUtilization:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source linkUtilization
+attr title "Link Utilization %"
+0	294165 84 585 256050 10 60 6 0 0 0 0
+vector 1 CampusNetwork.seRouter.ethernet encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+1	294249 313988 27 282333 0.089470098282 64.1114528 13287 28 120 744712 41783744
+1	8766761 312 282394 282646 64.1214528 64.1614528 13 56 56 728 40768
+1	8774840 48 282647 282648 64.1614528 64.1614528 2 56 56 112 6272
+vector 2 CampusNetwork.seRouter.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+2	608237 326332 102 282324 0.098354500613 64.1114528 13254 46 540 7148702 3859726868
+2	8767073 375 282385 282639 64.1214528 64.1614528 15 540 540 8100 4374000
+vector 8 CampusNetwork.seRouter.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+8	934569 805 0 224990 0 55.093483858282 35 0 1 3 3
+vector 9 CampusNetwork.seRouter.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+9	935374 812 0 224990 0 55.093483858282 35 0 1104 2288 1919744
+vector 10 CampusNetwork.seRouter.eth[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+10	936186 731 28 224990 0.089470098282 55.093483858282 27 0 1.136e-05 2.576e-05 2.327296e-10
+vector 11 CampusNetwork.seRouter.eth[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+11	936917 774 28 224990 0.089470098282 55.093483858282 27 368 1104 20432 17310464
+vector 12 CampusNetwork.seRouter.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+12	937691 9095 281 224990 0.1 55 550 0 29760 198720 3371417600
+12	8775037 1647 282649 282649 55.1 64.1614528 92 0 5600 5600 31360000
+vector 13 CampusNetwork.seRouter.eth[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+13	946786 774 28 224990 0.089470098282 55.093483858282 27 368 1104 20432 17310464
+vector 14 CampusNetwork.seRouter.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+14	947560 9095 281 224990 0.1 55 550 0 29760 198720 3371417600
+14	8776684 1647 282649 282649 55.1 64.1614528 92 0 5600 5600 31360000
+vector 19 CampusNetwork.seRouter.eth[0].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+19	956655 756 29 224991 0.089477298282 55.093490098282 27 64 138 2608 276416
+vector 20 CampusNetwork.seRouter.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+20	957411 418 101 224984 0.098354500613 55.093483858282 15 64 162 1394 148244
+vector 21 CampusNetwork.seRouter.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+21	957829 418 101 224984 0.098354500613 55.093483858282 15 64 162 1394 148244
+vector 24 CampusNetwork.seRouter.eth[0].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+24	958247 747 28 224990 0.089470098282 55.093483858282 27 46 138 2554 270476
+vector 25 CampusNetwork.seRouter.eth[0].mac packetDropIncorrectlyReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, packetBytes"
+25	958994 502 133 225002 0.102366020613 55.097496338282 18 64 162 2012 258208
+vector 30 CampusNetwork.seRouter.eth[1].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+30	959496 104475 0 282334 0 64.1114528 4425 0 0 0 0
+30	8767448 96 282397 282586 64.1214528 64.1514528 4 0 0 0 0
+30	8774888 24 282649 282649 64.1614528 64.1614528 1 0 0 0 0
+vector 31 CampusNetwork.seRouter.eth[1].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+31	1063971 104475 0 282334 0 64.1114528 4425 0 0 0 0
+31	8767544 96 282397 282586 64.1214528 64.1514528 4 0 0 0 0
+31	8774912 24 282649 282649 64.1614528 64.1614528 1 0 0 0 0
+vector 32 CampusNetwork.seRouter.eth[1].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+32	1168446 104425 176 282334 0.108847807824 64.1114528 4420 0 0 0 0
+32	8767640 96 282397 282586 64.1214528 64.1514528 4 0 0 0 0
+32	8774936 24 282649 282649 64.1614528 64.1614528 1 0 0 0 0
+vector 33 CampusNetwork.seRouter.eth[1].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+33	1272871 113265 176 282334 0.108847807824 64.1114528 4420 368 656 2616864 1549394944
+33	8767736 104 282397 282586 64.1214528 64.1514528 4 592 592 2368 1401856
+33	8774960 26 282649 282649 64.1614528 64.1614528 1 592 592 592 350464
+vector 34 CampusNetwork.seRouter.eth[1].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+34	1386136 12413 176 282271 0.1 64.1 641 0 65760 26156800 1550180249600
+34	8778331 38 282649 282649 64.1614528 64.1614528 1 67433.867944178 67433.867944178 67433.867944178 4547326545.9128
+vector 35 CampusNetwork.seRouter.eth[1].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+35	1398549 113265 176 282334 0.108847807824 64.1114528 4420 368 656 2616864 1549394944
+35	8767840 104 282397 282586 64.1214528 64.1514528 4 592 592 2368 1401856
+35	8774986 26 282649 282649 64.1614528 64.1614528 1 592 592 592 350464
+vector 36 CampusNetwork.seRouter.eth[1].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+36	1511814 12413 176 282271 0.1 64.1 641 0 65760 26156800 1550180249600
+36	8778369 38 282649 282649 64.1614528 64.1614528 1 67433.867944178 67433.867944178 67433.867944178 4547326545.9128
+vector 41 CampusNetwork.seRouter.eth[1].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+41	1524227 108846 177 282337 0.108919807824 64.1115184 4420 64 82 327126 24211276
+41	8767944 100 282400 282589 64.1215184 64.1515184 4 74 74 296 21904
+vector 42 CampusNetwork.seRouter.eth[1].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+42	1633073 113055 1387 282319 20.0010576 64.1114528 4413 64 558 2461960 1373742064
+42	8768044 130 282382 282634 64.1214528 64.1614528 5 558 558 2790 1556820
+vector 43 CampusNetwork.seRouter.eth[1].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+43	1746128 113055 1387 282319 20.0010576 64.1114528 4413 64 558 2461960 1373742064
+43	8768174 130 282382 282634 64.1214528 64.1614528 5 558 558 2790 1556820
+vector 46 CampusNetwork.seRouter.eth[1].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+46	1859183 108845 176 282334 0.108847807824 64.1114528 4420 46 82 327108 24209296
+46	8768304 100 282397 282586 64.1214528 64.1514528 4 74 74 296 21904
+46	8775012 25 282649 282649 64.1614528 64.1614528 1 74 74 74 5476
+vector 52 CampusNetwork.seRouter.eth[2].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+52	1968028 104468 0 282335 0 64.1114528 4425 0 0 0 0
+52	8768404 96 282398 282587 64.1214528 64.1514528 4 0 0 0 0
+vector 53 CampusNetwork.seRouter.eth[2].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+53	2072496 104468 0 282335 0 64.1114528 4425 0 0 0 0
+53	8768500 96 282398 282587 64.1214528 64.1514528 4 0 0 0 0
+vector 54 CampusNetwork.seRouter.eth[2].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+54	2176964 104418 161 282335 0.10852570675 64.1114528 4420 0 0 0 0
+54	8768596 96 282398 282587 64.1214528 64.1514528 4 0 0 0 0
+vector 55 CampusNetwork.seRouter.eth[2].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+55	2281382 113258 161 282335 0.10852570675 64.1114528 4420 368 656 2616864 1549394944
+55	8768692 104 282398 282587 64.1214528 64.1514528 4 592 592 2368 1401856
+vector 56 CampusNetwork.seRouter.eth[2].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+56	2394640 12413 161 282272 0.1 64.1 641 0 65760 26156800 1550180249600
+56	8778407 38 282649 282649 64.1614528 64.1614528 1 57800.458237867 57800.458237867 57800.458237867 3340892972.5074
+vector 57 CampusNetwork.seRouter.eth[2].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+57	2407053 113258 161 282335 0.10852570675 64.1114528 4420 368 656 2616864 1549394944
+57	8768796 104 282398 282587 64.1214528 64.1514528 4 592 592 2368 1401856
+vector 58 CampusNetwork.seRouter.eth[2].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+58	2520311 12413 161 282272 0.1 64.1 641 0 65760 26156800 1550180249600
+58	8778445 38 282649 282649 64.1614528 64.1614528 1 57800.458237867 57800.458237867 57800.458237867 3340892972.5074
+vector 63 CampusNetwork.seRouter.eth[2].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+63	2532724 108839 162 282338 0.10859770675 64.1115184 4420 64 82 327126 24211276
+63	8768900 100 282401 282590 64.1215184 64.1515184 4 74 74 296 21904
+vector 64 CampusNetwork.seRouter.eth[2].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+64	2641563 113055 1388 282320 20.0010576 64.1114528 4413 64 558 2461960 1373742064
+64	8769000 130 282383 282635 64.1214528 64.1614528 5 558 558 2790 1556820
+vector 65 CampusNetwork.seRouter.eth[2].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+65	2754618 113055 1388 282320 20.0010576 64.1114528 4413 64 558 2461960 1373742064
+65	8769130 130 282383 282635 64.1214528 64.1614528 5 558 558 2790 1556820
+vector 68 CampusNetwork.seRouter.eth[2].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+68	2867673 108838 161 282335 0.10852570675 64.1114528 4420 46 82 327108 24209296
+68	8769260 100 282398 282587 64.1214528 64.1514528 4 74 74 296 21904
+vector 74 CampusNetwork.seRouter.eth[3].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+74	2976511 104475 0 282336 0 64.1114528 4425 0 0 0 0
+74	8769360 96 282399 282588 64.1214528 64.1514528 4 0 0 0 0
+vector 75 CampusNetwork.seRouter.eth[3].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+75	3080986 104475 0 282336 0 64.1114528 4425 0 0 0 0
+75	8769456 96 282399 282588 64.1214528 64.1514528 4 0 0 0 0
+vector 76 CampusNetwork.seRouter.eth[3].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+76	3185461 104425 152 282336 0.107198867093 64.1114528 4420 0 0 0 0
+76	8769552 96 282399 282588 64.1214528 64.1514528 4 0 0 0 0
+vector 77 CampusNetwork.seRouter.eth[3].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+77	3289886 113265 152 282336 0.107198867093 64.1114528 4420 368 656 2616864 1549394944
+77	8769648 104 282399 282588 64.1214528 64.1514528 4 592 592 2368 1401856
+vector 78 CampusNetwork.seRouter.eth[3].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+78	3403151 12413 152 282273 0.1 64.1 641 0 65760 26156800 1550180249600
+78	8778483 38 282649 282649 64.1614528 64.1614528 1 57800.458237867 57800.458237867 57800.458237867 3340892972.5074
+vector 79 CampusNetwork.seRouter.eth[3].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+79	3415564 113265 152 282336 0.107198867093 64.1114528 4420 368 656 2616864 1549394944
+79	8769752 104 282399 282588 64.1214528 64.1514528 4 592 592 2368 1401856
+vector 80 CampusNetwork.seRouter.eth[3].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+80	3528829 12413 152 282273 0.1 64.1 641 0 65760 26156800 1550180249600
+80	8778521 38 282649 282649 64.1614528 64.1614528 1 57800.458237867 57800.458237867 57800.458237867 3340892972.5074
+vector 85 CampusNetwork.seRouter.eth[3].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+85	3541242 108846 153 282339 0.107270867093 64.1115184 4420 64 82 327126 24211276
+85	8769856 100 282402 282591 64.1215184 64.1515184 4 74 74 296 21904
+vector 86 CampusNetwork.seRouter.eth[3].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+86	3650088 113056 1389 282321 20.0010576 64.1114528 4413 64 558 2461960 1373742064
+86	8769956 130 282384 282636 64.1214528 64.1614528 5 558 558 2790 1556820
+vector 87 CampusNetwork.seRouter.eth[3].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+87	3763144 113056 1389 282321 20.0010576 64.1114528 4413 64 558 2461960 1373742064
+87	8770086 130 282384 282636 64.1214528 64.1614528 5 558 558 2790 1556820
+vector 90 CampusNetwork.seRouter.eth[3].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+90	3876200 108845 152 282336 0.107198867093 64.1114528 4420 46 82 327108 24209296
+90	8770216 100 282399 282588 64.1214528 64.1514528 4 74 74 296 21904
+vector 100 CampusNetwork.seRouter.ipv4.ip packetDropNoRouteFound:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoRouteFound(packetDropped)
+attr title "packet drop: no route found, packetBytes"
+100	3985045 352337 1435 282327 20.003568 64.1114528 13236 540 540 7147440 3859617600
+100	8770316 405 282388 282642 64.1214528 64.1614528 15 540 540 8100 4374000
+vector 102 CampusNetwork.seRouter.ipv4.arp arpRequestSent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpRequestSent
+attr title "ARP request sent, packetBytes"
+102	4337382 81 105 325 0.098354500613 2.098354500613 3 28 28 84 2352
+vector 103 CampusNetwork.seRouter.ipv4.arp arpReplySent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpReplySent
+attr title "ARP replies sent, packetBytes"
+103	4337463 72 1393 1395 20.0010576 20.0010576 3 28 28 84 2352
+vector 104 CampusNetwork.seHost1.ethernet encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+104	4337535 94877 1375 282307 20 64.11 4413 28 540 2382508 1286539984
+104	8770721 110 282370 282622 64.12 64.16 5 540 540 2700 1458000
+vector 105 CampusNetwork.seHost1.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+105	4432412 113266 183 282346 0.109919807824 64.1125184 4420 46 64 247566 13866820
+105	8770831 104 282409 282598 64.1225184 64.1525184 4 56 56 224 12544
+vector 111 CampusNetwork.seHost1.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+111	4545678 86107 0 282310 0 64.11 4418 0 0 0 0
+111	8770935 100 282373 282625 64.12 64.16 5 0 0 0 0
+vector 112 CampusNetwork.seHost1.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+112	4631785 86107 0 282310 0 64.11 4418 0 0 0 0
+112	8771035 100 282373 282625 64.12 64.16 5 0 0 0 0
+vector 113 CampusNetwork.seHost1.eth[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+113	4717892 86052 1378 282310 20 64.11 4413 0 0 0 0
+113	8771135 100 282373 282625 64.12 64.16 5 0 0 0 0
+vector 114 CampusNetwork.seHost1.eth[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+114	4803944 99290 1378 282310 20 64.11 4413 368 4464 19695536 87919365376
+114	8771235 115 282373 282625 64.12 64.16 5 4464 4464 22320 99636480
+vector 115 CampusNetwork.seHost1.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+115	4903234 13590 1378 282247 0.1 64.1 641 0 450080 196866080 87882674406400
+115	8778559 39 282649 282649 64.1614528 64.1614528 1 508487.81503853 508487.81503853 508487.81503853 258559858042.66
+vector 116 CampusNetwork.seHost1.eth[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+116	4916824 99290 1378 282310 20 64.11 4413 368 4464 19695536 87919365376
+116	8771350 115 282373 282625 64.12 64.16 5 4464 4464 22320 99636480
+vector 117 CampusNetwork.seHost1.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+117	5016114 13590 1378 282247 0.1 64.1 641 0 450080 196866080 87882674406400
+117	8778598 39 282649 282649 64.1614528 64.1614528 1 508487.81503853 508487.81503853 508487.81503853 258559858042.66
+vector 122 CampusNetwork.seHost1.eth[0].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+122	5029704 117468 1381 282313 20.0000576 64.1104528 4413 64 558 2461960 1373742064
+122	8771465 135 282376 282628 64.1204528 64.1604528 5 558 558 2790 1556820
+vector 123 CampusNetwork.seHost1.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+123	5147172 113266 182 282343 0.109919807824 64.1125184 4420 64 82 327126 24211276
+123	8771600 104 282406 282595 64.1225184 64.1525184 4 74 74 296 21904
+vector 124 CampusNetwork.seHost1.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+124	5260438 113266 182 282343 0.109919807824 64.1125184 4420 64 82 327126 24211276
+124	8771704 104 282406 282595 64.1225184 64.1525184 4 74 74 296 21904
+vector 127 CampusNetwork.seHost1.eth[0].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+127	5373704 94877 1378 282310 20 64.11 4413 46 558 2461942 1373740084
+127	8771808 110 282373 282625 64.12 64.16 5 558 558 2790 1556820
+vector 139 CampusNetwork.seHost1.ipv4.arp arpRequestSent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpRequestSent
+attr title "ARP request sent, packetBytes"
+139	5468581 16 1372 1372 20 20 1 28 28 28 784
+vector 141 CampusNetwork.seHost1.udp packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+141	5468597 94875 1367 282364 20 64.12 4413 520 520 2294760 1193275200
+141	8771918 88 282427 282616 64.13 64.16 4 520 520 2080 1081600
+vector 143 CampusNetwork.seHost1.udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+143	5563472 11 0 0 0 0 1 0 0 0 0
+vector 144 CampusNetwork.seHost1.udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+144	5563483 11 0 0 0 0 1 0 0 0 0
+vector 145 CampusNetwork.seHost1.udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+145	5563494 11 0 0 0 0 1 0 0 0 0
+vector 147 CampusNetwork.seHost1.app[0] throughput:vector ETV
+attr recordingmode vector
+attr source throughput(packetReceived)
+attr title throughput
+attr unit bps
+147	8778637 11977 282649 282649 0.1 64.1614528 642 0 0 0 0
+vector 148 CampusNetwork.seHost1.app[0] packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+148	5563505 94875 1335 282361 20 64.12 4413 512 512 2259456 1156841472
+148	8772006 88 282424 282613 64.13 64.16 4 512 512 2048 1048576
+vector 151 CampusNetwork.seHost2.ethernet encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+151	5658380 94877 1376 282308 20 64.11 4413 28 540 2382508 1286539984
+151	8772094 110 282371 282623 64.12 64.16 5 540 540 2700 1458000
+vector 152 CampusNetwork.seHost2.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+152	5753257 113259 180 282347 0.10959770675 64.1125184 4420 46 64 247566 13866820
+152	8772204 104 282410 282599 64.1225184 64.1525184 4 56 56 224 12544
+vector 158 CampusNetwork.seHost2.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+158	5866516 86107 0 282311 0 64.11 4418 0 0 0 0
+158	8772308 100 282374 282626 64.12 64.16 5 0 0 0 0
+vector 159 CampusNetwork.seHost2.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+159	5952623 86107 0 282311 0 64.11 4418 0 0 0 0
+159	8772408 100 282374 282626 64.12 64.16 5 0 0 0 0
+vector 160 CampusNetwork.seHost2.eth[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+160	6038730 86052 1379 282311 20 64.11 4413 0 0 0 0
+160	8772508 100 282374 282626 64.12 64.16 5 0 0 0 0
+vector 161 CampusNetwork.seHost2.eth[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+161	6124782 99290 1379 282311 20 64.11 4413 368 4464 19695536 87919365376
+161	8772608 115 282374 282626 64.12 64.16 5 4464 4464 22320 99636480
+vector 162 CampusNetwork.seHost2.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+162	6224072 13590 1379 282248 0.1 64.1 641 0 450080 196866080 87882674406400
+162	8790614 39 282649 282649 64.1614528 64.1614528 1 508487.81503853 508487.81503853 508487.81503853 258559858042.66
+vector 163 CampusNetwork.seHost2.eth[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+163	6237662 99290 1379 282311 20 64.11 4413 368 4464 19695536 87919365376
+163	8772723 115 282374 282626 64.12 64.16 5 4464 4464 22320 99636480
+vector 164 CampusNetwork.seHost2.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+164	6336952 13590 1379 282248 0.1 64.1 641 0 450080 196866080 87882674406400
+164	8790653 39 282649 282649 64.1614528 64.1614528 1 508487.81503853 508487.81503853 508487.81503853 258559858042.66
+vector 169 CampusNetwork.seHost2.eth[0].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+169	6350542 117468 1382 282314 20.0000576 64.1104528 4413 64 558 2461960 1373742064
+169	8772838 135 282377 282629 64.1204528 64.1604528 5 558 558 2790 1556820
+vector 170 CampusNetwork.seHost2.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+170	6468010 113259 179 282344 0.10959770675 64.1125184 4420 64 82 327126 24211276
+170	8772973 104 282407 282596 64.1225184 64.1525184 4 74 74 296 21904
+vector 171 CampusNetwork.seHost2.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+171	6581269 113259 179 282344 0.10959770675 64.1125184 4420 64 82 327126 24211276
+171	8773077 104 282407 282596 64.1225184 64.1525184 4 74 74 296 21904
+vector 174 CampusNetwork.seHost2.eth[0].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+174	6694528 94877 1379 282311 20 64.11 4413 46 558 2461942 1373740084
+174	8773181 110 282374 282626 64.12 64.16 5 558 558 2790 1556820
+vector 186 CampusNetwork.seHost2.ipv4.arp arpRequestSent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpRequestSent
+attr title "ARP request sent, packetBytes"
+186	6789405 16 1373 1373 20 20 1 28 28 28 784
+vector 188 CampusNetwork.seHost2.udp packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+188	6789421 94875 1369 282365 20 64.12 4413 520 520 2294760 1193275200
+188	8773291 88 282428 282617 64.13 64.16 4 520 520 2080 1081600
+vector 190 CampusNetwork.seHost2.udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+190	6884296 11 0 0 0 0 1 0 0 0 0
+vector 191 CampusNetwork.seHost2.udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+191	6884307 11 0 0 0 0 1 0 0 0 0
+vector 192 CampusNetwork.seHost2.udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+192	6884318 11 0 0 0 0 1 0 0 0 0
+vector 194 CampusNetwork.seHost2.app[0] throughput:vector ETV
+attr recordingmode vector
+attr source throughput(packetReceived)
+attr title throughput
+attr unit bps
+194	8790692 11977 282649 282649 0.1 64.1614528 642 0 0 0 0
+vector 195 CampusNetwork.seHost2.app[0] packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+195	6884329 94875 1336 282362 20 64.12 4413 512 512 2259456 1156841472
+195	8773379 88 282425 282614 64.13 64.16 4 512 512 2048 1048576
+vector 198 CampusNetwork.seHost3.ethernet encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+198	6979204 94877 1377 282309 20 64.11 4413 28 540 2382508 1286539984
+198	8773467 110 282372 282624 64.12 64.16 5 540 540 2700 1458000
+vector 199 CampusNetwork.seHost3.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+199	7074081 113266 156 282348 0.108270867093 64.1125184 4420 46 64 247566 13866820
+199	8773577 104 282411 282600 64.1225184 64.1525184 4 56 56 224 12544
+vector 205 CampusNetwork.seHost3.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+205	7187347 86107 0 282312 0 64.11 4418 0 0 0 0
+205	8773681 100 282375 282627 64.12 64.16 5 0 0 0 0
+vector 206 CampusNetwork.seHost3.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+206	7273454 86107 0 282312 0 64.11 4418 0 0 0 0
+206	8773781 100 282375 282627 64.12 64.16 5 0 0 0 0
+vector 207 CampusNetwork.seHost3.eth[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+207	7359561 86052 1380 282312 20 64.11 4413 0 0 0 0
+207	8773881 100 282375 282627 64.12 64.16 5 0 0 0 0
+vector 208 CampusNetwork.seHost3.eth[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+208	7445613 99290 1380 282312 20 64.11 4413 368 4464 19695536 87919365376
+208	8773981 115 282375 282627 64.12 64.16 5 4464 4464 22320 99636480
+vector 209 CampusNetwork.seHost3.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+209	7544903 13590 1380 282249 0.1 64.1 641 0 450080 196866080 87882674406400
+209	8802669 39 282649 282649 64.1614528 64.1614528 1 508487.81503853 508487.81503853 508487.81503853 258559858042.66
+vector 210 CampusNetwork.seHost3.eth[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+210	7558493 99290 1380 282312 20 64.11 4413 368 4464 19695536 87919365376
+210	8774096 115 282375 282627 64.12 64.16 5 4464 4464 22320 99636480
+vector 211 CampusNetwork.seHost3.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+211	7657783 13590 1380 282249 0.1 64.1 641 0 450080 196866080 87882674406400
+211	8802708 39 282649 282649 64.1614528 64.1614528 1 508487.81503853 508487.81503853 508487.81503853 258559858042.66
+vector 216 CampusNetwork.seHost3.eth[0].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+216	7671373 117468 1383 282315 20.0000576 64.1104528 4413 64 558 2461960 1373742064
+216	8774211 135 282378 282630 64.1204528 64.1604528 5 558 558 2790 1556820
+vector 217 CampusNetwork.seHost3.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+217	7788841 113266 155 282345 0.108270867093 64.1125184 4420 64 82 327126 24211276
+217	8774346 104 282408 282597 64.1225184 64.1525184 4 74 74 296 21904
+vector 218 CampusNetwork.seHost3.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+218	7902107 113266 155 282345 0.108270867093 64.1125184 4420 64 82 327126 24211276
+218	8774450 104 282408 282597 64.1225184 64.1525184 4 74 74 296 21904
+vector 221 CampusNetwork.seHost3.eth[0].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+221	8015373 94877 1380 282312 20 64.11 4413 46 558 2461942 1373740084
+221	8774554 110 282375 282627 64.12 64.16 5 558 558 2790 1556820
+vector 233 CampusNetwork.seHost3.ipv4.arp arpRequestSent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpRequestSent
+attr title "ARP request sent, packetBytes"
+233	8110250 16 1374 1374 20 20 1 28 28 28 784
+vector 235 CampusNetwork.seHost3.udp packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+235	8110266 94875 1371 282366 20 64.12 4413 520 520 2294760 1193275200
+235	8774664 88 282429 282618 64.13 64.16 4 520 520 2080 1081600
+vector 237 CampusNetwork.seHost3.udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+237	8205141 11 0 0 0 0 1 0 0 0 0
+vector 238 CampusNetwork.seHost3.udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+238	8205152 11 0 0 0 0 1 0 0 0 0
+vector 239 CampusNetwork.seHost3.udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+239	8205163 11 0 0 0 0 1 0 0 0 0
+vector 241 CampusNetwork.seHost3.app[0] throughput:vector ETV
+attr recordingmode vector
+attr source throughput(packetReceived)
+attr title throughput
+attr unit bps
+241	8802747 11977 282649 282649 0.1 64.1614528 642 0 0 0 0
+vector 242 CampusNetwork.seHost3.app[0] packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+242	8205174 94875 1337 282363 20 64.12 4413 512 512 2259456 1156841472
+242	8774752 88 282426 282615 64.13 64.16 4 512 512 2048 1048576
+vector 245 CampusNetwork.eeRouter.ethernet encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+245	8300049 1128 21 262628 0.089228422814 61 39 28 120 2524 174064
+vector 246 CampusNetwork.eeRouter.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+246	8301177 351 55 256133 0.092269227451 60.00201264 12 46 144 810 67180
+vector 252 CampusNetwork.eeRouter.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+252	8301528 544 0 262632 0 61 23 0 0 0 0
+vector 253 CampusNetwork.eeRouter.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+253	8302072 544 0 262632 0 61 23 0 0 0 0
+vector 254 CampusNetwork.eeRouter.eth[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+254	8302616 489 61 262632 0.092510047472 61 18 0 0 0 0
+vector 255 CampusNetwork.eeRouter.eth[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+255	8303105 527 61 262632 0.092510047472 61 18 368 1104 12032 8727040
+vector 256 CampusNetwork.eeRouter.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+256	8303632 10808 526 262632 0.1 61 610 0 19680 113760 1480064000
+256	8814724 611 282649 282649 61.1 64.1614528 32 0 6560 6560 43033600
+vector 257 CampusNetwork.eeRouter.eth[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+257	8314440 527 61 262632 0.092510047472 61 18 368 1104 12032 8727040
+vector 258 CampusNetwork.eeRouter.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+258	8314967 10808 526 262632 0.1 61 610 0 19680 113760 1480064000
+258	8815335 611 282649 282649 61.1 64.1614528 32 0 6560 6560 43033600
+vector 263 CampusNetwork.eeRouter.eth[0].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+263	8325775 526 62 262639 0.092517567472 61.0000072 18 64 138 1558 142300
+vector 264 CampusNetwork.eeRouter.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+264	8326301 351 54 256131 0.092269227451 60.00201264 12 64 162 1026 100228
+vector 265 CampusNetwork.eeRouter.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+265	8326652 351 54 256131 0.092269227451 60.00201264 12 64 162 1026 100228
+vector 268 CampusNetwork.eeRouter.eth[0].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+268	8327003 509 61 262632 0.092510047472 61 18 46 138 1504 136360
+vector 269 CampusNetwork.eeRouter.eth[0].mac packetDropIncorrectlyReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, packetBytes"
+269	8327512 587 79 257031 0.096523327472 60.115052436554 20 64 162 1678 156948
+vector 274 CampusNetwork.eeRouter.eth[1].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+274	8328099 254 0 256679 0 60.089228422814 12 0 0 0 0
+vector 275 CampusNetwork.eeRouter.eth[1].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+275	8328353 254 0 256679 0 60.089228422814 12 0 0 0 0
+vector 276 CampusNetwork.eeRouter.eth[1].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+276	8328607 199 22 256679 0.089228422814 60.089228422814 7 0 0 0 0
+vector 277 CampusNetwork.eeRouter.eth[1].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+277	8328806 213 22 256679 0.089228422814 60.089228422814 7 656 656 4592 3012352
+vector 278 CampusNetwork.eeRouter.eth[1].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+278	8329019 10599 631 256679 0.1 60 600 0 6560 39360 258201600
+278	8815946 799 282649 282649 60.1 64.1614528 42 0 6560 6560 43033600
+vector 279 CampusNetwork.eeRouter.eth[1].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+279	8339618 213 22 256679 0.089228422814 60.089228422814 7 656 656 4592 3012352
+vector 280 CampusNetwork.eeRouter.eth[1].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+280	8339831 10599 631 256679 0.1 60 600 0 6560 39360 258201600
+280	8816745 799 282649 282649 60.1 64.1614528 42 0 6560 6560 43033600
+vector 285 CampusNetwork.eeRouter.eth[1].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+285	8350430 206 23 256680 0.089300422814 60.089300422814 7 82 82 574 47068
+vector 290 CampusNetwork.eeRouter.eth[1].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+290	8350636 206 22 256679 0.089228422814 60.089228422814 7 82 82 574 47068
+vector 296 CampusNetwork.eeRouter.eth[2].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+296	8350842 254 0 256775 0 60.096843115973 12 0 0 0 0
+vector 297 CampusNetwork.eeRouter.eth[2].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+297	8351096 254 0 256775 0 60.096843115973 12 0 0 0 0
+vector 298 CampusNetwork.eeRouter.eth[2].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+298	8351350 199 83 256775 0.096843115973 60.096843115973 7 0 0 0 0
+vector 299 CampusNetwork.eeRouter.eth[2].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+299	8351549 213 83 256775 0.096843115973 60.096843115973 7 656 656 4592 3012352
+vector 300 CampusNetwork.eeRouter.eth[2].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+300	8351762 10599 724 256775 0.1 60 600 0 6560 39360 258201600
+300	8817544 799 282649 282649 60.1 64.1614528 42 0 6560 6560 43033600
+vector 301 CampusNetwork.eeRouter.eth[2].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+301	8362361 213 83 256775 0.096843115973 60.096843115973 7 656 656 4592 3012352
+vector 302 CampusNetwork.eeRouter.eth[2].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+302	8362574 10599 724 256775 0.1 60 600 0 6560 39360 258201600
+302	8818343 799 282649 282649 60.1 64.1614528 42 0 6560 6560 43033600
+vector 307 CampusNetwork.eeRouter.eth[2].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+307	8373173 206 84 256776 0.096915115973 60.096915115973 7 82 82 574 47068
+vector 312 CampusNetwork.eeRouter.eth[2].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+312	8373379 206 83 256775 0.096843115973 60.096843115973 7 82 82 574 47068
+vector 318 CampusNetwork.eeRouter.eth[3].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+318	8373585 255 0 257046 0 60.119763288281 12 0 0 0 0
+vector 319 CampusNetwork.eeRouter.eth[3].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+319	8373840 255 0 257046 0 60.119763288281 12 0 0 0 0
+vector 320 CampusNetwork.eeRouter.eth[3].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+320	8374095 200 240 257046 0.119763288281 60.119763288281 7 0 0 0 0
+vector 321 CampusNetwork.eeRouter.eth[3].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+321	8374295 214 240 257046 0.119763288281 60.119763288281 7 656 656 4592 3012352
+vector 322 CampusNetwork.eeRouter.eth[3].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+322	8374509 10615 240 257046 0.1 60.1 601 0 6560 39360 258201600
+322	8819142 780 282649 282649 60.2 64.1614528 41 0 6560 6560 43033600
+vector 323 CampusNetwork.eeRouter.eth[3].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+323	8385124 214 240 257046 0.119763288281 60.119763288281 7 656 656 4592 3012352
+vector 324 CampusNetwork.eeRouter.eth[3].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+324	8385338 10615 240 257046 0.1 60.1 601 0 6560 39360 258201600
+324	8819922 780 282649 282649 60.2 64.1614528 41 0 6560 6560 43033600
+vector 329 CampusNetwork.eeRouter.eth[3].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+329	8395953 207 241 257047 0.119835288281 60.119835288281 7 82 82 574 47068
+vector 334 CampusNetwork.eeRouter.eth[3].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+334	8396160 207 240 257046 0.119763288281 60.119763288281 7 82 82 574 47068
+vector 347 CampusNetwork.eeRouter.ipv4.arp arpReplySent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpReplySent
+attr title "ARP replies sent, packetBytes"
+347	8396367 84 524 1118 7.096523327472 15.096523327472 3 28 28 84 2352
+vector 349 CampusNetwork.eeHost1.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+349	8396451 206 45 256711 0.090300422814 60.090300422814 7 64 64 448 28672
+vector 355 CampusNetwork.eeHost1.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+355	8396657 55 0 0 0 0 5 0 0 0 0
+vector 356 CampusNetwork.eeHost1.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+356	8396712 55 0 0 0 0 5 0 0 0 0
+vector 359 CampusNetwork.eeHost1.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+359	8820702 11977 282649 282649 0.1 64.1614528 642 0 0 0 0
+vector 361 CampusNetwork.eeHost1.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+361	8832679 11977 282649 282649 0.1 64.1614528 642 0 0 0 0
+vector 367 CampusNetwork.eeHost1.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+367	8396767 206 44 256710 0.090300422814 60.090300422814 7 82 82 574 47068
+vector 368 CampusNetwork.eeHost1.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+368	8396973 206 44 256710 0.090300422814 60.090300422814 7 82 82 574 47068
+vector 387 CampusNetwork.eeHost1.udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+387	8397179 11 0 0 0 0 1 0 0 0 0
+vector 388 CampusNetwork.eeHost1.udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+388	8397190 11 0 0 0 0 1 0 0 0 0
+vector 389 CampusNetwork.eeHost1.udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+389	8397201 11 0 0 0 0 1 0 0 0 0
+vector 391 CampusNetwork.eeHost2.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+391	8397212 206 93 256785 0.097915115973 60.097915115973 7 64 64 448 28672
+vector 397 CampusNetwork.eeHost2.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+397	8397418 55 0 0 0 0 5 0 0 0 0
+vector 398 CampusNetwork.eeHost2.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+398	8397473 55 0 0 0 0 5 0 0 0 0
+vector 401 CampusNetwork.eeHost2.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+401	8844656 11977 282649 282649 0.1 64.1614528 642 0 0 0 0
+vector 403 CampusNetwork.eeHost2.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+403	8856633 11977 282649 282649 0.1 64.1614528 642 0 0 0 0
+vector 409 CampusNetwork.eeHost2.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+409	8397528 206 92 256784 0.097915115973 60.097915115973 7 82 82 574 47068
+vector 410 CampusNetwork.eeHost2.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+410	8397734 206 92 256784 0.097915115973 60.097915115973 7 82 82 574 47068
+vector 429 CampusNetwork.eeHost2.udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+429	8397940 11 0 0 0 0 1 0 0 0 0
+vector 430 CampusNetwork.eeHost2.udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+430	8397951 11 0 0 0 0 1 0 0 0 0
+vector 431 CampusNetwork.eeHost2.udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+431	8397962 11 0 0 0 0 1 0 0 0 0
+vector 433 CampusNetwork.eeHost3.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+433	8397973 207 244 257071 0.120835288281 60.120835288281 7 64 64 448 28672
+vector 439 CampusNetwork.eeHost3.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+439	8398180 55 0 0 0 0 5 0 0 0 0
+vector 440 CampusNetwork.eeHost3.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+440	8398235 55 0 0 0 0 5 0 0 0 0
+vector 443 CampusNetwork.eeHost3.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+443	8868610 11977 282649 282649 0.1 64.1614528 642 0 0 0 0
+vector 445 CampusNetwork.eeHost3.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+445	8880587 11977 282649 282649 0.1 64.1614528 642 0 0 0 0
+vector 451 CampusNetwork.eeHost3.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+451	8398290 207 243 257070 0.120835288281 60.120835288281 7 82 82 574 47068
+vector 452 CampusNetwork.eeHost3.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+452	8398497 207 243 257070 0.120835288281 60.120835288281 7 82 82 574 47068
+vector 471 CampusNetwork.eeHost3.udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+471	8398704 11 0 0 0 0 1 0 0 0 0
+vector 472 CampusNetwork.eeHost3.udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+472	8398715 11 0 0 0 0 1 0 0 0 0
+vector 473 CampusNetwork.eeHost3.udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+473	8398726 11 0 0 0 0 1 0 0 0 0
+vector 474 CampusNetwork.coreRouter.ethernet encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+474	8398737 3670 15 257011 0.08782770417 60.113039796554 131 28 144 10356 1016688
+vector 475 CampusNetwork.coreRouter.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+475	8402407 1496 51 262672 0.091477298282 61.0020072 52 46 120 3334 234476
+vector 481 CampusNetwork.coreRouter.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+481	8403903 1140 0 224999 0 55.095490098282 47 0 6 39 149
+vector 482 CampusNetwork.coreRouter.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+482	8405043 1180 0 224999 0 55.095490098282 47 0 7776 49104 247567616
+vector 483 CampusNetwork.coreRouter.eth[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+483	8406223 967 76 224999 0.096346980613 55.095490098282 33 0 8.736e-05 0.0003344 1.95804672e-08
+vector 484 CampusNetwork.coreRouter.eth[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+484	8407190 924 76 224999 0.096346980613 55.095490098282 33 368 1296 26800 25616640
+vector 485 CampusNetwork.coreRouter.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+485	8408114 9642 130 224957 0.1 55 550 0 97280 256800 12093619200
+485	8892564 1740 282649 282649 55.1 64.1614528 92 0 11200 11200 125440000
+vector 486 CampusNetwork.coreRouter.eth[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+486	8417756 977 76 224999 0.096346980613 55.095490098282 33 368 1296 26800 25616640
+vector 487 CampusNetwork.coreRouter.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+487	8418733 9642 130 224957 0.1 55 550 0 97280 256800 12093619200
+487	8894304 1740 282649 282649 55.1 64.1614528 92 0 11200 11200 125440000
+vector 492 CampusNetwork.coreRouter.eth[0].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+492	8428375 952 77 225000 0.096354500613 55.095496338282 33 64 162 3406 406452
+vector 493 CampusNetwork.coreRouter.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+493	8429327 341 50 224993 0.091477298282 55.095490098282 12 64 138 946 79204
+vector 494 CampusNetwork.coreRouter.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+494	8429668 341 50 224993 0.091477298282 55.095490098282 12 64 138 946 79204
+vector 497 CampusNetwork.coreRouter.eth[0].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+497	8430009 944 76 224999 0.096346980613 55.095490098282 33 46 162 3350 400260
+vector 498 CampusNetwork.coreRouter.eth[0].mac packetDropIncorrectlyReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, packetBytes"
+498	8430953 442 344 129564 2.104372260613 40.091477618282 15 70 138 1662 197212
+vector 503 CampusNetwork.coreRouter.eth[1].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+503	8431395 977 0 257013 0 60.113039796554 38 0 1 1 1
+vector 504 CampusNetwork.coreRouter.eth[1].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+504	8432372 979 0 257013 0 60.113039796554 38 0 592 592 350464
+vector 505 CampusNetwork.coreRouter.eth[1].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+505	8433351 898 41 257013 0.090262027451 60.113039796554 32 0 1.2e-05 1.2e-05 1.44e-10
+vector 506 CampusNetwork.coreRouter.eth[1].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+506	8434249 961 41 257013 0.090262027451 60.113039796554 32 368 1296 20192 15192064
+vector 507 CampusNetwork.coreRouter.eth[1].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+507	8435210 10611 275 257013 0.1 60.1 601 0 28800 189920 2665651200
+507	8896044 781 282649 282649 60.2 64.1614528 41 0 12000 12000 144000000
+vector 508 CampusNetwork.coreRouter.eth[1].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+508	8445821 961 41 257013 0.090262027451 60.113039796554 32 368 1296 20192 15192064
+vector 509 CampusNetwork.coreRouter.eth[1].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+509	8446782 10611 275 257013 0.1 60.1 601 0 28800 189920 2665651200
+509	8896825 781 282649 282649 60.2 64.1614528 41 0 12000 12000 144000000
+vector 514 CampusNetwork.coreRouter.eth[1].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+514	8457393 938 42 257015 0.090269227451 60.113052436554 32 64 162 2704 257176
+vector 515 CampusNetwork.coreRouter.eth[1].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+515	8458331 289 64 262671 0.094517567472 61.0020072 10 64 138 870 79172
+vector 516 CampusNetwork.coreRouter.eth[1].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+516	8458620 289 64 262671 0.094517567472 61.0020072 10 64 138 870 79172
+vector 519 CampusNetwork.coreRouter.eth[1].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+519	8458909 929 41 257013 0.090262027451 60.113039796554 32 46 162 2524 237376
+vector 520 CampusNetwork.coreRouter.eth[1].mac packetDropIncorrectlyReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, packetBytes"
+520	8459838 237 529 256771 7.098529087472 60.094517567472 8 64 138 688 63128
+vector 525 CampusNetwork.coreRouter.eth[2].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+525	8460075 866 0 256888 0 60.106744704792 35 0 2 7 9
+vector 526 CampusNetwork.coreRouter.eth[2].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+526	8460941 881 0 256888 0 60.106744704792 35 0 2592 6960 11129088
+vector 527 CampusNetwork.coreRouter.eth[2].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+527	8461822 730 146 256888 0.106744704792 60.106744704792 25 0 2.912e-05 7.744e-05 1.4645248e-09
+vector 528 CampusNetwork.coreRouter.eth[2].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+528	8462552 732 146 256888 0.106744704792 60.106744704792 25 368 1296 20624 19294464
+vector 529 CampusNetwork.coreRouter.eth[2].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+529	8463284 10584 146 256888 0.1 60.1 601 0 38880 199680 5399347200
+529	8897606 780 282649 282649 60.2 64.1614528 41 0 6560 6560 43033600
+vector 530 CampusNetwork.coreRouter.eth[2].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+530	8473868 750 146 256888 0.106744704792 60.106744704792 25 368 1296 20624 19294464
+vector 531 CampusNetwork.coreRouter.eth[2].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+531	8474618 10584 146 256888 0.1 60.1 601 0 38880 199680 5399347200
+531	8898386 780 282649 282649 60.2 64.1614528 41 0 6560 6560 43033600
+vector 536 CampusNetwork.coreRouter.eth[2].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+536	8485202 733 147 256889 0.106752224792 60.106751904792 25 64 162 2596 303456
+vector 537 CampusNetwork.coreRouter.eth[2].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+537	8485935 432 122 256946 0.100003521822 60.110758464792 15 64 138 1316 125624
+vector 538 CampusNetwork.coreRouter.eth[2].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+538	8486367 432 122 256946 0.100003521822 60.110758464792 15 64 138 1316 125624
+vector 541 CampusNetwork.coreRouter.eth[2].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+541	8486799 725 146 256888 0.106744704792 60.106744704792 25 46 162 2578 301476
+vector 542 CampusNetwork.coreRouter.eth[2].mac packetDropIncorrectlyReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, packetBytes"
+542	8487524 443 224 256826 0.114769984792 60.100003841822 15 70 138 1346 130140
+vector 547 CampusNetwork.coreRouter.eth[3].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+547	8487967 878 0 256673 0 60.08782770417 37 0 4 17 45
+vector 548 CampusNetwork.coreRouter.eth[3].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+548	8488845 902 0 256673 0 60.08782770417 37 0 5184 21840 75121920
+vector 549 CampusNetwork.coreRouter.eth[3].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+549	8489747 766 16 256673 0.08782770417 60.08782770417 27 0 5.824e-05 0.00016016 6.5718016e-09
+vector 550 CampusNetwork.coreRouter.eth[3].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+550	8490513 757 16 256673 0.08782770417 60.08782770417 27 368 1296 24912 25516800
+vector 551 CampusNetwork.coreRouter.eth[3].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+551	8491270 10577 625 256090 0.1 60 600 0 71680 230240 7990092800
+551	8899166 800 282649 282649 60.1 64.1614528 42 0 18880 18880 356454400
+vector 552 CampusNetwork.coreRouter.eth[3].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+552	8501847 793 16 256673 0.08782770417 60.08782770417 27 368 1296 24912 25516800
+vector 553 CampusNetwork.coreRouter.eth[3].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+553	8502640 10577 625 256090 0.1 60 600 0 71680 230240 7990092800
+553	8899966 800 282649 282649 60.1 64.1614528 42 0 18880 18880 356454400
+vector 558 CampusNetwork.coreRouter.eth[3].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+558	8513217 783 17 256674 0.08783490417 60.08783522417 27 64 162 3132 400680
+vector 559 CampusNetwork.coreRouter.eth[3].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+559	8514000 434 214 257008 0.113039476554 60.113039796554 15 64 86 1138 87348
+vector 560 CampusNetwork.coreRouter.eth[3].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+560	8514434 434 214 257008 0.113039476554 60.113039796554 15 64 86 1138 87348
+vector 563 CampusNetwork.coreRouter.eth[3].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+563	8514868 766 16 256673 0.08782770417 60.08782770417 27 46 162 3114 398700
+vector 564 CampusNetwork.coreRouter.eth[3].mac packetDropIncorrectlyReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, packetBytes"
+564	8515634 435 33992 257033 25.09585714417 60.117052276554 15 64 138 1498 164852
+vector 569 CampusNetwork.coreRouter.eth[4].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+569	8516069 254 0 256686 0 60.089873400851 12 0 0 0 0
+vector 570 CampusNetwork.coreRouter.eth[4].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+570	8516323 254 0 256686 0 60.089873400851 12 0 0 0 0
+vector 571 CampusNetwork.coreRouter.eth[4].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+571	8516577 199 35 256686 0.089873400851 60.089873400851 7 0 0 0 0
+vector 572 CampusNetwork.coreRouter.eth[4].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+572	8516776 213 35 256686 0.089873400851 60.089873400851 7 656 656 4592 3012352
+vector 573 CampusNetwork.coreRouter.eth[4].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+573	8516989 10599 652 256686 0.1 60 600 0 6560 39360 258201600
+573	8900766 799 282649 282649 60.1 64.1614528 42 0 6560 6560 43033600
+vector 574 CampusNetwork.coreRouter.eth[4].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+574	8527588 213 35 256686 0.089873400851 60.089873400851 7 656 656 4592 3012352
+vector 575 CampusNetwork.coreRouter.eth[4].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+575	8527801 10599 652 256686 0.1 60 600 0 6560 39360 258201600
+575	8901565 799 282649 282649 60.1 64.1614528 42 0 6560 6560 43033600
+vector 580 CampusNetwork.coreRouter.eth[4].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+580	8538400 206 36 256687 0.089880600851 60.089880600851 7 82 82 574 47068
+vector 585 CampusNetwork.coreRouter.eth[4].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+585	8538606 206 35 256686 0.089873400851 60.089873400851 7 82 82 574 47068
+vector 591 CampusNetwork.coreRouter.eth[5].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+591	8538812 255 0 256983 0 60.111736760164 12 0 0 0 0
+vector 592 CampusNetwork.coreRouter.eth[5].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+592	8539067 255 0 256983 0 60.111736760164 12 0 0 0 0
+vector 593 CampusNetwork.coreRouter.eth[5].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+593	8539322 200 201 256983 0.111736760164 60.111736760164 7 0 0 0 0
+vector 594 CampusNetwork.coreRouter.eth[5].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+594	8539522 214 201 256983 0.111736760164 60.111736760164 7 656 656 4592 3012352
+vector 595 CampusNetwork.coreRouter.eth[5].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+595	8539736 10615 201 256983 0.1 60.1 601 0 6560 39360 258201600
+595	8902364 780 282649 282649 60.2 64.1614528 41 0 6560 6560 43033600
+vector 596 CampusNetwork.coreRouter.eth[5].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+596	8550351 214 201 256983 0.111736760164 60.111736760164 7 656 656 4592 3012352
+vector 597 CampusNetwork.coreRouter.eth[5].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+597	8550565 10615 201 256983 0.1 60.1 601 0 6560 39360 258201600
+597	8903144 780 282649 282649 60.2 64.1614528 41 0 6560 6560 43033600
+vector 602 CampusNetwork.coreRouter.eth[5].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+602	8561180 207 202 256984 0.111743960164 60.111743960164 7 82 82 574 47068
+vector 607 CampusNetwork.coreRouter.eth[5].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+607	8561387 207 201 256983 0.111736760164 60.111736760164 7 82 82 574 47068
+vector 613 CampusNetwork.coreRouter.ipv4.ip packetDropAddressResolutionFailed:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsAddressResolutionFailed(packetDropped)
+attr title "packet drop: address resolution failed, packetBytes"
+613	8561594 83 372 1039 3.094517567472 13.094517567472 3 52 52 156 8112
+vector 619 CampusNetwork.coreRouter.ipv4.arp arpRequestSent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpRequestSent
+attr title "ARP request sent, packetBytes"
+619	8561677 275 68 1111 0.094517567472 15.094517567472 10 28 28 280 7840
+vector 620 CampusNetwork.coreRouter.ipv4.arp arpReplySent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpReplySent
+attr title "ARP replies sent, packetBytes"
+620	8561952 135 128 670 0.100360260613 10.09184098417 5 28 28 140 3920
+vector 622 CampusNetwork.dnsServer.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+622	8562087 206 48 256720 0.090880600851 60.090880600851 7 64 64 448 28672
+vector 628 CampusNetwork.dnsServer.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+628	8562293 55 0 0 0 0 5 0 0 0 0
+vector 629 CampusNetwork.dnsServer.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+629	8562348 55 0 0 0 0 5 0 0 0 0
+vector 632 CampusNetwork.dnsServer.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+632	8903924 11977 282649 282649 0.1 64.1614528 642 0 0 0 0
+vector 634 CampusNetwork.dnsServer.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+634	8915901 11977 282649 282649 0.1 64.1614528 642 0 0 0 0
+vector 640 CampusNetwork.dnsServer.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+640	8562403 206 47 256719 0.090880600851 60.090880600851 7 82 82 574 47068
+vector 641 CampusNetwork.dnsServer.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+641	8562609 206 47 256719 0.090880600851 60.090880600851 7 82 82 574 47068
+vector 660 CampusNetwork.dnsServer.udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+660	8562815 11 0 0 0 0 1 0 0 0 0
+vector 661 CampusNetwork.dnsServer.udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+661	8562826 11 0 0 0 0 1 0 0 0 0
+vector 662 CampusNetwork.dnsServer.udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+662	8562837 11 0 0 0 0 1 0 0 0 0
+vector 664 CampusNetwork.appServer.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+664	8562848 207 205 257005 0.112743960164 60.112743960164 7 64 64 448 28672
+vector 670 CampusNetwork.appServer.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+670	8563055 55 0 0 0 0 5 0 0 0 0
+vector 671 CampusNetwork.appServer.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+671	8563110 55 0 0 0 0 5 0 0 0 0
+vector 674 CampusNetwork.appServer.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+674	8927878 11977 282649 282649 0.1 64.1614528 642 0 0 0 0
+vector 676 CampusNetwork.appServer.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+676	8939855 11977 282649 282649 0.1 64.1614528 642 0 0 0 0
+vector 682 CampusNetwork.appServer.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+682	8563165 207 204 257004 0.112743960164 60.112743960164 7 82 82 574 47068
+vector 683 CampusNetwork.appServer.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+683	8563372 207 204 257004 0.112743960164 60.112743960164 7 82 82 574 47068
+vector 702 CampusNetwork.appServer.udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+702	8563579 11 0 0 0 0 1 0 0 0 0
+vector 703 CampusNetwork.appServer.udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+703	8563590 11 0 0 0 0 1 0 0 0 0
+vector 704 CampusNetwork.appServer.udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+704	8563601 11 0 0 0 0 1 0 0 0 0
+vector 706 CampusNetwork.appServer.app[0] throughput:vector ETV
+attr recordingmode vector
+attr source throughput(packetReceived)
+attr title throughput
+attr unit bps
+706	8951832 11977 282649 282649 0.1 64.1614528 642 0 0 0 0
+vector 709 CampusNetwork.bbaRouter.ethernet encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+709	8563612 1451 88 257036 0.097450692058 60.118226617754 51 28 120 3448 254336
+vector 710 CampusNetwork.bbaRouter.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+710	8565063 262 165 129747 0.108752224792 40.108752224792 9 46 144 774 78692
+vector 716 CampusNetwork.bbaRouter.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+716	8565325 956 0 256910 0 60.108752224792 39 0 3 10 20
+vector 717 CampusNetwork.bbaRouter.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+717	8566281 973 0 256910 0 60.108752224792 39 0 3312 10528 23507968
+vector 718 CampusNetwork.bbaRouter.eth[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+718	8567254 852 98 256910 0.097996321822 60.108752224792 30 0 3.792e-05 8.464e-05 2.3142144e-09
+vector 719 CampusNetwork.bbaRouter.eth[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+719	8568106 861 98 256910 0.097996321822 60.108752224792 30 368 1104 21152 16242176
+vector 720 CampusNetwork.bbaRouter.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+720	8568967 10611 170 256910 0.1 60.1 601 0 51040 205920 4197913600
+720	8963809 780 282649 282649 60.2 64.1614528 41 0 5600 5600 31360000
+vector 721 CampusNetwork.bbaRouter.eth[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+721	8579578 888 98 256910 0.097996321822 60.108752224792 30 368 1104 21152 16242176
+vector 722 CampusNetwork.bbaRouter.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+722	8580466 10611 170 256910 0.1 60.1 601 0 51040 205920 4197913600
+722	8964589 780 282649 282649 60.2 64.1614528 41 0 5600 5600 31360000
+vector 727 CampusNetwork.bbaRouter.eth[0].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+727	8591077 874 99 256911 0.098003521822 60.108758464792 30 64 138 2662 255764
+vector 728 CampusNetwork.bbaRouter.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+728	8591951 262 164 129746 0.108752224792 40.108752224792 9 64 162 936 109472
+vector 729 CampusNetwork.bbaRouter.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+729	8592213 262 164 129746 0.108752224792 40.108752224792 9 64 162 936 109472
+vector 732 CampusNetwork.bbaRouter.eth[0].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+732	8592475 858 98 256910 0.097996321822 60.108752224792 30 46 138 2644 253784
+vector 733 CampusNetwork.bbaRouter.eth[0].mac packetDropIncorrectlyReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, packetBytes"
+733	8593333 471 790 256906 10.102010081822 60.108751904792 16 70 162 1660 193984
+vector 738 CampusNetwork.bbaRouter.eth[1].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+738	8593804 254 0 256781 0 60.097450692058 12 0 0 0 0
+vector 739 CampusNetwork.bbaRouter.eth[1].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+739	8594058 254 0 256781 0 60.097450692058 12 0 0 0 0
+vector 740 CampusNetwork.bbaRouter.eth[1].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+740	8594312 199 89 256781 0.097450692058 60.097450692058 7 0 0 0 0
+vector 741 CampusNetwork.bbaRouter.eth[1].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+741	8594511 213 89 256781 0.097450692058 60.097450692058 7 656 656 4592 3012352
+vector 742 CampusNetwork.bbaRouter.eth[1].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+742	8594724 10599 730 256781 0.1 60 600 0 6560 39360 258201600
+742	8965369 799 282649 282649 60.1 64.1614528 42 0 6560 6560 43033600
+vector 743 CampusNetwork.bbaRouter.eth[1].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+743	8605323 213 89 256781 0.097450692058 60.097450692058 7 656 656 4592 3012352
+vector 744 CampusNetwork.bbaRouter.eth[1].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+744	8605536 10599 730 256781 0.1 60 600 0 6560 39360 258201600
+744	8966168 799 282649 282649 60.1 64.1614528 42 0 6560 6560 43033600
+vector 749 CampusNetwork.bbaRouter.eth[1].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+749	8616135 206 90 256782 0.097522692058 60.097522692058 7 82 82 574 47068
+vector 754 CampusNetwork.bbaRouter.eth[1].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+754	8616341 206 89 256781 0.097450692058 60.097450692058 7 82 82 574 47068
+vector 760 CampusNetwork.bbaRouter.eth[2].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+760	8616547 255 0 256805 0 60.098632778686 12 0 0 0 0
+vector 761 CampusNetwork.bbaRouter.eth[2].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+761	8616802 255 0 256805 0 60.098632778686 12 0 0 0 0
+vector 762 CampusNetwork.bbaRouter.eth[2].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+762	8617057 200 116 256805 0.098632778686 60.098632778686 7 0 0 0 0
+vector 763 CampusNetwork.bbaRouter.eth[2].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+763	8617257 214 116 256805 0.098632778686 60.098632778686 7 656 656 4592 3012352
+vector 764 CampusNetwork.bbaRouter.eth[2].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+764	8617471 10599 760 256805 0.1 60 600 0 6560 39360 258201600
+764	8966967 799 282649 282649 60.1 64.1614528 42 0 6560 6560 43033600
+vector 765 CampusNetwork.bbaRouter.eth[2].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+765	8628070 214 116 256805 0.098632778686 60.098632778686 7 656 656 4592 3012352
+vector 766 CampusNetwork.bbaRouter.eth[2].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+766	8628284 10599 760 256805 0.1 60 600 0 6560 39360 258201600
+766	8967766 799 282649 282649 60.1 64.1614528 42 0 6560 6560 43033600
+vector 771 CampusNetwork.bbaRouter.eth[2].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+771	8638883 207 117 256806 0.098704778686 60.098704778686 7 82 82 574 47068
+vector 776 CampusNetwork.bbaRouter.eth[2].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+776	8639090 207 116 256805 0.098632778686 60.098632778686 7 82 82 574 47068
+vector 782 CampusNetwork.bbaRouter.eth[3].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+782	8639297 255 0 257037 0 60.118226617754 12 0 0 0 0
+vector 783 CampusNetwork.bbaRouter.eth[3].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+783	8639552 255 0 257037 0 60.118226617754 12 0 0 0 0
+vector 784 CampusNetwork.bbaRouter.eth[3].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+784	8639807 200 231 257037 0.118226617754 60.118226617754 7 0 0 0 0
+vector 785 CampusNetwork.bbaRouter.eth[3].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+785	8640007 214 231 257037 0.118226617754 60.118226617754 7 656 656 4592 3012352
+vector 786 CampusNetwork.bbaRouter.eth[3].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+786	8640221 10615 231 257037 0.1 60.1 601 0 6560 39360 258201600
+786	8968565 780 282649 282649 60.2 64.1614528 41 0 6560 6560 43033600
+vector 787 CampusNetwork.bbaRouter.eth[3].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+787	8650836 214 231 257037 0.118226617754 60.118226617754 7 656 656 4592 3012352
+vector 788 CampusNetwork.bbaRouter.eth[3].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+788	8651050 10615 231 257037 0.1 60.1 601 0 6560 39360 258201600
+788	8969345 780 282649 282649 60.2 64.1614528 41 0 6560 6560 43033600
+vector 793 CampusNetwork.bbaRouter.eth[3].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+793	8661665 207 232 257038 0.118298617754 60.118298617754 7 82 82 574 47068
+vector 798 CampusNetwork.bbaRouter.eth[3].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+798	8661872 207 231 257037 0.118226617754 60.118226617754 7 82 82 574 47068
+vector 810 CampusNetwork.bbaRouter.ipv4.arp arpRequestSent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpRequestSent
+attr title "ARP request sent, packetBytes"
+810	8662079 27 168 168 0.108752224792 0.108752224792 1 28 28 28 784
+vector 813 CampusNetwork.bbaHost1.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+813	8662106 207 111 256794 0.098522692058 60.098522692058 7 64 64 448 28672
+vector 819 CampusNetwork.bbaHost1.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+819	8662313 55 0 0 0 0 5 0 0 0 0
+vector 820 CampusNetwork.bbaHost1.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+820	8662368 55 0 0 0 0 5 0 0 0 0
+vector 823 CampusNetwork.bbaHost1.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+823	8970125 11977 282649 282649 0.1 64.1614528 642 0 0 0 0
+vector 825 CampusNetwork.bbaHost1.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+825	8982102 11977 282649 282649 0.1 64.1614528 642 0 0 0 0
+vector 831 CampusNetwork.bbaHost1.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+831	8662423 207 110 256793 0.098522692058 60.098522692058 7 82 82 574 47068
+vector 832 CampusNetwork.bbaHost1.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+832	8662630 207 110 256793 0.098522692058 60.098522692058 7 82 82 574 47068
+vector 851 CampusNetwork.bbaHost1.udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+851	8662837 11 0 0 0 0 1 0 0 0 0
+vector 852 CampusNetwork.bbaHost1.udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+852	8662848 11 0 0 0 0 1 0 0 0 0
+vector 853 CampusNetwork.bbaHost1.udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+853	8662859 11 0 0 0 0 1 0 0 0 0
+vector 855 CampusNetwork.bbaHost2.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+855	8662870 207 120 256809 0.099704778686 60.099704778686 7 64 64 448 28672
+vector 861 CampusNetwork.bbaHost2.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+861	8663077 55 0 0 0 0 5 0 0 0 0
+vector 862 CampusNetwork.bbaHost2.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+862	8663132 55 0 0 0 0 5 0 0 0 0
+vector 865 CampusNetwork.bbaHost2.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+865	8994079 11977 282649 282649 0.1 64.1614528 642 0 0 0 0
+vector 867 CampusNetwork.bbaHost2.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+867	9006056 11977 282649 282649 0.1 64.1614528 642 0 0 0 0
+vector 873 CampusNetwork.bbaHost2.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+873	8663187 207 119 256808 0.099704778686 60.099704778686 7 82 82 574 47068
+vector 874 CampusNetwork.bbaHost2.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+874	8663394 207 119 256808 0.099704778686 60.099704778686 7 82 82 574 47068
+vector 893 CampusNetwork.bbaHost2.udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+893	8663601 11 0 0 0 0 1 0 0 0 0
+vector 894 CampusNetwork.bbaHost2.udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+894	8663612 11 0 0 0 0 1 0 0 0 0
+vector 895 CampusNetwork.bbaHost2.udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+895	8663623 11 0 0 0 0 1 0 0 0 0
+vector 897 CampusNetwork.bbaHost3.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+897	8663634 207 235 257041 0.119298617754 60.119298617754 7 64 64 448 28672
+vector 903 CampusNetwork.bbaHost3.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+903	8663841 55 0 0 0 0 5 0 0 0 0
+vector 904 CampusNetwork.bbaHost3.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+904	8663896 55 0 0 0 0 5 0 0 0 0
+vector 907 CampusNetwork.bbaHost3.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+907	9018033 11977 282649 282649 0.1 64.1614528 642 0 0 0 0
+vector 909 CampusNetwork.bbaHost3.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+909	9030010 11977 282649 282649 0.1 64.1614528 642 0 0 0 0
+vector 915 CampusNetwork.bbaHost3.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+915	8663951 207 234 257040 0.119298617754 60.119298617754 7 82 82 574 47068
+vector 916 CampusNetwork.bbaHost3.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+916	8664158 207 234 257040 0.119298617754 60.119298617754 7 82 82 574 47068
+vector 935 CampusNetwork.bbaHost3.udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+935	8664365 11 0 0 0 0 1 0 0 0 0
+vector 936 CampusNetwork.bbaHost3.udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+936	8664376 11 0 0 0 0 1 0 0 0 0
+vector 937 CampusNetwork.bbaHost3.udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+937	8664387 11 0 0 0 0 1 0 0 0 0
+vector 938 CampusNetwork.adminRouter.ethernet encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+938	8664398 1427 6 257028 0.072648761897 60.115046036554 51 28 120 3416 251168
+vector 939 CampusNetwork.adminRouter.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+939	8665825 381 641 256134 10.08983522417 60.00201264 13 46 144 1154 118900
+vector 945 CampusNetwork.adminRouter.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+945	8666206 963 0 257029 0 60.115046036554 40 0 3 11 21
+vector 946 CampusNetwork.adminRouter.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+946	8667169 982 0 257029 0 60.115046036554 40 0 3312 11088 23821568
+vector 947 CampusNetwork.adminRouter.eth[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+947	8668151 835 195 257029 0.111032276554 60.115046036554 30 0 3.792e-05 9.184e-05 2.3660544e-09
+vector 948 CampusNetwork.adminRouter.eth[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+948	8668986 838 195 257029 0.111032276554 60.115046036554 30 368 1104 20896 15965696
+vector 949 CampusNetwork.adminRouter.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+949	8669824 10605 195 256953 0.1 60.1 601 0 49120 196480 4050739200
+949	9041987 781 282649 282649 60.2 64.1614528 41 0 12480 12480 155750400
+vector 950 CampusNetwork.adminRouter.eth[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+950	8680429 865 195 257029 0.111032276554 60.115046036554 30 368 1104 20896 15965696
+vector 951 CampusNetwork.adminRouter.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+951	8681294 10605 195 256953 0.1 60.1 601 0 49120 196480 4050739200
+951	9042768 781 282649 282649 60.2 64.1614528 41 0 12480 12480 155750400
+vector 956 CampusNetwork.adminRouter.eth[0].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+956	8691899 869 196 257030 0.111039476554 60.115052276554 30 64 138 2636 252200
+vector 957 CampusNetwork.adminRouter.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+957	8692768 381 640 256132 10.08983522417 60.00201264 13 64 162 1388 164656
+vector 958 CampusNetwork.adminRouter.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+958	8693149 381 640 256132 10.08983522417 60.00201264 13 64 162 1388 164656
+vector 961 CampusNetwork.adminRouter.eth[0].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+961	8693530 835 195 257029 0.111032276554 60.115046036554 30 46 138 2612 249464
+vector 962 CampusNetwork.adminRouter.eth[0].mac packetDropIncorrectlyReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, packetBytes"
+962	8694365 402 31 256682 0.08983490417 60.08983522417 14 70 162 1744 236024
+vector 967 CampusNetwork.adminRouter.eth[1].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+967	8694767 255 0 257020 0 60.113836309436 12 0 0 0 0
+vector 968 CampusNetwork.adminRouter.eth[1].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+968	8695022 255 0 257020 0 60.113836309436 12 0 0 0 0
+vector 969 CampusNetwork.adminRouter.eth[1].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+969	8695277 200 221 257020 0.113836309436 60.113836309436 7 0 0 0 0
+vector 970 CampusNetwork.adminRouter.eth[1].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+970	8695477 214 221 257020 0.113836309436 60.113836309436 7 656 656 4592 3012352
+vector 971 CampusNetwork.adminRouter.eth[1].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+971	8695691 10615 221 257020 0.1 60.1 601 0 6560 39360 258201600
+971	9043549 780 282649 282649 60.2 64.1614528 41 0 6560 6560 43033600
+vector 972 CampusNetwork.adminRouter.eth[1].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+972	8706306 214 221 257020 0.113836309436 60.113836309436 7 656 656 4592 3012352
+vector 973 CampusNetwork.adminRouter.eth[1].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+973	8706520 10615 221 257020 0.1 60.1 601 0 6560 39360 258201600
+973	9044329 780 282649 282649 60.2 64.1614528 41 0 6560 6560 43033600
+vector 978 CampusNetwork.adminRouter.eth[1].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+978	8717135 207 222 257021 0.113908309436 60.113908309436 7 82 82 574 47068
+vector 983 CampusNetwork.adminRouter.eth[1].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+983	8717342 207 221 257020 0.113836309436 60.113836309436 7 82 82 574 47068
+vector 989 CampusNetwork.adminRouter.eth[2].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+989	8717549 253 0 256601 0 60.072648761897 12 0 0 0 0
+vector 990 CampusNetwork.adminRouter.eth[2].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+990	8717802 253 0 256601 0 60.072648761897 12 0 0 0 0
+vector 991 CampusNetwork.adminRouter.eth[2].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+991	8718055 198 7 256601 0.072648761897 60.072648761897 7 0 0 0 0
+vector 992 CampusNetwork.adminRouter.eth[2].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+992	8718253 212 7 256601 0.072648761897 60.072648761897 7 656 656 4592 3012352
+vector 993 CampusNetwork.adminRouter.eth[2].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+993	8718465 10599 616 256601 0.1 60 600 0 6560 39360 258201600
+993	9045109 799 282649 282649 60.1 64.1614528 42 0 6560 6560 43033600
+vector 994 CampusNetwork.adminRouter.eth[2].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+994	8729064 212 7 256601 0.072648761897 60.072648761897 7 656 656 4592 3012352
+vector 995 CampusNetwork.adminRouter.eth[2].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+995	8729276 10599 616 256601 0.1 60 600 0 6560 39360 258201600
+995	9045908 799 282649 282649 60.1 64.1614528 42 0 6560 6560 43033600
+vector 1000 CampusNetwork.adminRouter.eth[2].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+1000	8739875 212 8 256602 0.072720761897 60.072720761897 7 82 82 574 47068
+vector 1005 CampusNetwork.adminRouter.eth[2].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+1005	8740087 212 7 256601 0.072648761897 60.072648761897 7 82 82 574 47068
+vector 1011 CampusNetwork.adminRouter.eth[3].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+1011	8740299 267 0 256879 0 60.105634331586 12 0 0 0 0
+vector 1012 CampusNetwork.adminRouter.eth[3].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+1012	8740566 267 0 256879 0 60.105634331586 12 0 0 0 0
+vector 1013 CampusNetwork.adminRouter.eth[3].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+1013	8740833 207 137 256879 0.105634331586 60.105634331586 7 0 0 0 0
+vector 1014 CampusNetwork.adminRouter.eth[3].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+1014	8741040 221 137 256879 0.105634331586 60.105634331586 7 656 656 4592 3012352
+vector 1015 CampusNetwork.adminRouter.eth[3].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+1015	8741261 11216 137 256879 0.1 60.1 601 0 6560 39360 258201600
+1015	9046707 821 282649 282649 60.2 64.1614528 41 0 6560 6560 43033600
+vector 1016 CampusNetwork.adminRouter.eth[3].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+1016	8752477 221 137 256879 0.105634331586 60.105634331586 7 656 656 4592 3012352
+vector 1017 CampusNetwork.adminRouter.eth[3].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+1017	8752698 11216 137 256879 0.1 60.1 601 0 6560 39360 258201600
+1017	9047528 821 282649 282649 60.2 64.1614528 41 0 6560 6560 43033600
+vector 1022 CampusNetwork.adminRouter.eth[3].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+1022	8763914 214 138 256880 0.105706331586 60.105706331586 7 82 82 574 47068
+vector 1027 CampusNetwork.adminRouter.eth[3].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+1027	8764128 214 137 256879 0.105634331586 60.105634331586 7 82 82 574 47068
+vector 1039 CampusNetwork.adminRouter.ipv4.arp arpRequestSent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpRequestSent
+attr title "ARP request sent, packetBytes"
+1039	8764342 28 644 644 10.08983522417 10.08983522417 1 28 28 28 784
+vector 1042 CampusNetwork.adminHost1.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+1042	8764370 214 226 257024 0.114908309436 60.114908309436 7 64 64 448 28672
+vector 1048 CampusNetwork.adminHost1.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+1048	8764584 60 0 0 0 0 5 0 0 0 0
+vector 1049 CampusNetwork.adminHost1.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+1049	8764644 60 0 0 0 0 5 0 0 0 0
+vector 1052 CampusNetwork.adminHost1.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+1052	9048349 12619 282649 282649 0.1 64.1614528 642 0 0 0 0
+vector 1054 CampusNetwork.adminHost1.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+1054	9060968 12619 282649 282649 0.1 64.1614528 642 0 0 0 0
+vector 1060 CampusNetwork.adminHost1.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+1060	8764704 214 225 257023 0.114908309436 60.114908309436 7 82 82 574 47068
+vector 1061 CampusNetwork.adminHost1.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+1061	8764918 214 225 257023 0.114908309436 60.114908309436 7 82 82 574 47068
+vector 1080 CampusNetwork.adminHost1.udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+1080	8765132 12 0 0 0 0 1 0 0 0 0
+vector 1081 CampusNetwork.adminHost1.udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+1081	8765144 12 0 0 0 0 1 0 0 0 0
+vector 1082 CampusNetwork.adminHost1.udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+1082	8765156 12 0 0 0 0 1 0 0 0 0
+vector 1084 CampusNetwork.adminHost2.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+1084	8765168 213 11 256605 0.073720761897 60.073720761897 7 64 64 448 28672
+vector 1090 CampusNetwork.adminHost2.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+1090	8765381 60 0 0 0 0 5 0 0 0 0
+vector 1091 CampusNetwork.adminHost2.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+1091	8765441 60 0 0 0 0 5 0 0 0 0
+vector 1094 CampusNetwork.adminHost2.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+1094	9073587 12619 282649 282649 0.1 64.1614528 642 0 0 0 0
+vector 1096 CampusNetwork.adminHost2.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+1096	9086206 12619 282649 282649 0.1 64.1614528 642 0 0 0 0
+vector 1102 CampusNetwork.adminHost2.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+1102	8765501 213 10 256604 0.073720761897 60.073720761897 7 82 82 574 47068
+vector 1103 CampusNetwork.adminHost2.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+1103	8765714 213 10 256604 0.073720761897 60.073720761897 7 82 82 574 47068
+vector 1122 CampusNetwork.adminHost2.udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+1122	8765927 12 0 0 0 0 1 0 0 0 0
+vector 1123 CampusNetwork.adminHost2.udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+1123	8765939 12 0 0 0 0 1 0 0 0 0
+vector 1124 CampusNetwork.adminHost2.udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+1124	8765951 12 0 0 0 0 1 0 0 0 0
+vector 1126 CampusNetwork.adminHost3.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+1126	8765963 214 141 256883 0.106706331586 60.106706331586 7 64 64 448 28672
+vector 1132 CampusNetwork.adminHost3.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+1132	8766177 60 0 0 0 0 5 0 0 0 0
+vector 1133 CampusNetwork.adminHost3.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+1133	8766237 60 0 0 0 0 5 0 0 0 0
+vector 1136 CampusNetwork.adminHost3.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+1136	9098825 12619 282649 282649 0.1 64.1614528 642 0 0 0 0
+vector 1138 CampusNetwork.adminHost3.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+1138	9111444 12621 282649 282649 0.1 64.1614528 642 0 0 0 0
+vector 1144 CampusNetwork.adminHost3.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+1144	8766297 214 140 256882 0.106706331586 60.106706331586 7 82 82 574 47068
+vector 1145 CampusNetwork.adminHost3.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+1145	8766511 214 140 256882 0.106706331586 60.106706331586 7 82 82 574 47068
+vector 1164 CampusNetwork.adminHost3.udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+1164	8766725 12 0 0 0 0 1 0 0 0 0
+vector 1165 CampusNetwork.adminHost3.udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+1165	8766737 12 0 0 0 0 1 0 0 0 0
+vector 1166 CampusNetwork.adminHost3.udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+1166	8766749 12 0 0 0 0 1 0 0 0 0

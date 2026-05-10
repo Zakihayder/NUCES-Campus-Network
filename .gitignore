@@ -1,10 +1,8 @@
-﻿.cproject
+.cproject
 .oppbuildspec
 .project
 .settings/
-**/Makefile*
 **/*.exe
-**/out/
-**/results/
 Binaries/
 Includes/
+*.elog
