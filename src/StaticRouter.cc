@@ -2,6 +2,126 @@
 
 Define_Module(StaticRouter);
 
+uint32_t StaticRouter::ipToInt(const std::string& ip)
+{
+    uint32_t result = 0;
+    std::istringstream ss(ip);
+    std::string octet;
+    int shift = 24;
+    while (std::getline(ss, octet, '.') && shift >= 0) {
+        result |= ((uint32_t)std::stoi(octet) << shift);
+        shift -= 8;
+    }
+    return result;
+}
+
+int StaticRouter::lookupRoute(uint32_t destIP)
+{
+    int      bestPort = -1;
+    uint32_t bestMask =  0;
+
+    for (const auto& entry : routeTable) {
+        if ((destIP & entry.subnetMask) == entry.destNetwork) {
+            // Longest Prefix Match Logic [cite: 137]
+            if (entry.subnetMask >= bestMask) {
+                bestMask = entry.subnetMask;
+                bestPort = entry.outPort;
+            }
+        }
+    }
+    return bestPort;
+}
+
+void StaticRouter::initialize()
+{
+    pktsForwardedSignal = registerSignal("pktsForwarded");
+    pktsDroppedSignal   = registerSignal("pktsDropped");
+
+    // Initialize per-port signals
+    int numPorts = gateSize("port");
+    linkUtilSignals.resize(numPorts);
+    for (int i = 0; i < numPorts; i++) {
+        std::string sName = "linkUtilPort" + std::to_string(i);
+        linkUtilSignals[i] = registerSignal(sName.c_str());
+    }
+
+    totalForwarded = 0;
+    totalDropped   = 0;
+    linkDown       = false;
+
+    std::string tableStr = par("routeTable").stdstringValue();
+    std::istringstream ss(tableStr);
+    std::string entry;
+    while (std::getline(ss, entry, ';')) {
+        if (entry.empty()) continue;
+        auto colonPos = entry.find(':');
+        if (colonPos == std::string::npos) continue;
+
+        std::string netPart = entry.substr(0, colonPos);
+        int port = std::stoi(entry.substr(colonPos + 1));
+        auto slashPos = netPart.find('/');
+        if (slashPos == std::string::npos) continue;
+
+        RouteEntry re;
+        re.destNetwork = ipToInt(netPart.substr(0, slashPos));
+        re.subnetMask  = ipToInt(netPart.substr(slashPos + 1));
+        re.outPort     = port;
+        routeTable.push_back(re);
+    }
+}
+
+void StaticRouter::handleMessage(cMessage *msg)
+{
+    // Check if the link is down (via ScenarioManager/Failure Event) [cite: 143]
+    if (msg->hasPar("isFailure") && msg->par("isFailure").boolValue()) {
+        linkDown = true;
+        delete msg;
+        return;
+    }
+
+    if (!msg->hasPar("destAddr")) {
+        delete msg;
+        return;
+    }
+
+    std::string destStr = msg->par("destAddr").stringValue();
+    std::string srcStr  = msg->hasPar("srcAddr") ? msg->par("srcAddr").stringValue() : "unknown";
+    uint32_t destIP = ipToInt(destStr);
+
+    int port = lookupRoute(destIP);
+
+    if (port == -1 || linkDown) {
+        // Drop and Log requirement [cite: 139, 144]
+        EV_WARN << "DROP: src=" << srcStr << " dst=" << destStr << " time=" << simTime() << "\n";
+        emit(pktsDroppedSignal, 1);
+        totalDropped++;
+        delete msg;
+    } else {
+        emit(pktsForwardedSignal, 1);
+        totalForwarded++;
+
+        // Per-link utilization tracking
+        cPacket *pkt = check_and_cast<cPacket *>(msg);
+        emit(linkUtilSignals[port], (long)pkt->getByteLength());
+
+        send(pkt, "port$o", port);
+    }
+}
+
+void StaticRouter::finish()
+{
+    recordScalar("totalForwarded", totalForwarded);
+    recordScalar("totalDropped",   totalDropped);
+}
+
+
+
+
+/*
+#include "StaticRouter.h"
+
+Define_Module(StaticRouter);
+
 // ── IP string to uint32 ──────────────────────────────────────────────
 uint32_t StaticRouter::ipToInt(const std::string& ip)
 {
@@ -122,7 +242,7 @@ void StaticRouter::handleMessage(cMessage *msg)
         EV_WARN << "[StaticRouter:" << getFullName()
                 << "] Packet has no destAddr param, forwarding to port 0\n";
         if (gateSize("port") > 0)
-            send(msg, "port$o", 0);
+            send(msg, "ethg$o", 0);
         else
             delete msg;
         return;
@@ -153,7 +273,7 @@ void StaticRouter::handleMessage(cMessage *msg)
                 << " t=" << simTime() << "\n";
         emit(pktsForwardedSignal, 1);
         totalForwarded++;
-        send(msg, "port$o", port);
+        send(msg, "ethg$o", port);
     }
 }
 
@@ -169,4 +289,5 @@ void StaticRouter::finish()
     recordScalar("totalForwarded", totalForwarded);
     recordScalar("totalDropped",   totalDropped);
     recordScalar("routingOverhead", 0);
-}
+}*/
+

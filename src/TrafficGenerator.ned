@@ -17,3 +17,4 @@ simple TrafficGenerator
     gates:
         output out;
 }
+

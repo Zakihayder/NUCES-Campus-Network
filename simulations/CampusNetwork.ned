@@ -18,12 +18,6 @@ network CampusNetwork
             @display("p=80,950;i=block/cogwheel;is=s");
         }
 		
-		srMonitor: StaticRouter {
-            parameters:
-                numPorts = 4;
-                routeTable = "10.0.2.0/255.255.255.0:1;10.0.3.0/255.255.255.0:2;10.0.4.0/255.255.255.0:3;10.0.5.0/255.255.255.0:0;10.0.6.0/255.255.255.0:0";
-            @display("p=200,950;i=device/router;is=s");
-        }
 
         // ── Scenario Manager (controls link failure) ───────────
         scenarioManager: ScenarioManager {

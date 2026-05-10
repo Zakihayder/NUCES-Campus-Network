@@ -1,0 +1,18 @@
+SB ov 1539 ev 2 rid StaticRouting_CBR-0-20260510-17:04:41-19812
+
+E # 0 t 0 m 1 ce -1 msg -1MMC id 1 c omnetpp::cModule t simulations.CampusNetwork n CampusNetwork cm 1
+MDC id 1 d bgb=1400,1150;bgc=#ddeeff
+MC id 2 c inet::Ipv4NetworkConfigurator t inet.networklayer.configurator.ipv4.Ipv4NetworkConfigurator pid 1 n configurator
+MDC id 2 d is=s;p=80,1080;i=block/cogwheel
+MC id 3 c inet::ScenarioManager t inet.common.scenario.ScenarioManager pid 1 n scenarioManager
+MDC id 3 d is=s;p=350,1080;i=block/control
+MC id 4 c inet::NodeBase t inet.node.inet.Router pid 1 n seRouter cm 1
+MDC id 4 d t=SE-Router;is=m;p=280,380;i=device/router;bgb=1256,1125
+MC id 5 c inet::NodeBase t inet.node.inet.StandardHost pid 1 n seHost1 cm 1
+MDC id 5 d t=SE-PC1;is=s;p=100,200;i=device/laptop;bgb=1256,1125
+MC id 6 c inet::NodeBase t inet.node.inet.StandardHost pid 1 n seHost2 cm 1
+MDC id 6 d t=SE-PC2;is=s;p=280,200;i=device/laptop;bgb=1256,1125
+MC id 7 c inet::NodeBase t inet.node.inet.StandardHost pid 1 n seHost3 cm 1
+MDC id 7 d t=SE-PC3;is=s;p=460,200;i=device/laptop;bgb=1256,1125
+
+SE e 0 c -1 m ""
